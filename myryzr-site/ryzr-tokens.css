@@ -1,0 +1,21 @@
+/* RYZR Design Tokens */
+:root {
+  --ryzr-ink:          #050505;
+  --ryzr-card:         #111111;
+  --ryzr-line:         rgba(255, 255, 255, 0.09);
+  --ryzr-orange:       #FF6B1A;
+  --ryzr-orange-dim:   #cc5514;
+  --ryzr-mute:         rgba(255, 255, 255, 0.48);
+  --ryzr-warn:         #FFB800;
+  --ryzr-info:         #4B9EFF;
+
+  --ryzr-font-body:    'Archivo', -apple-system, BlinkMacSystemFont, sans-serif;
+  --ryzr-font-display: 'Archivo Black', 'Archivo', sans-serif;
+  --ryzr-font-kicker:  'Bebas Neue', 'Archivo Black', sans-serif;
+
+  --ryzr-radius-card:  20px;
+  --ryzr-radius-pill:  999px;
+
+  --ryzr-shadow-card:  0 4px 40px rgba(0, 0, 0, 0.6);
+  --ryzr-shadow-glow:  0 0 60px rgba(255, 107, 26, 0.25);
+}
