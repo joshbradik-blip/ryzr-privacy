@@ -3,7 +3,7 @@ import type { Config } from "@netlify/functions";
 const SUPABASE_URL = Netlify.env.get("SUPABASE_URL")!;
 const SUPABASE_SERVICE_KEY = Netlify.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const META_USER_TOKEN = Netlify.env.get("META_USER_TOKEN")!;
-const META_APP_ID = Netlify.env.get("META_APP_ID")!;
+const META_AD_ACCOUNT_ID = Netlify.env.get("META_AD_ACCOUNT_ID")!;
 const FB_PAGE_ID = Netlify.env.get("META_PAGE_ID")!;
 const DAILY_BUDGET_CENTS = parseInt(Netlify.env.get("META_DAILY_AD_BUDGET") ?? "500", 10);
 
@@ -53,7 +53,7 @@ async function getTodayAdSpendCents(): Promise<number> {
 }
 
 async function createBoostCampaign(postId: string, platform: string, budgetCents: number): Promise<string> {
-  const campaignRes = await fetch(`https://graph.facebook.com/v19.0/act_${META_APP_ID}/campaigns`, {
+  const campaignRes = await fetch(`https://graph.facebook.com/v19.0/act_${META_AD_ACCOUNT_ID}/campaigns`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -74,7 +74,7 @@ async function createBoostCampaign(postId: string, platform: string, budgetCents
   const endTime = new Date();
   endTime.setHours(23, 59, 59, 0);
 
-  const adSetRes = await fetch(`https://graph.facebook.com/v19.0/act_${META_APP_ID}/adsets`, {
+  const adSetRes = await fetch(`https://graph.facebook.com/v19.0/act_${META_AD_ACCOUNT_ID}/adsets`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -102,7 +102,7 @@ async function createBoostCampaign(postId: string, platform: string, budgetCents
     ? { object_story_id: `${FB_PAGE_ID}_${postId}` }
     : { instagram_actor_id: Netlify.env.get("META_IG_ACCOUNT_ID"), object_story_id: postId };
 
-  const adRes = await fetch(`https://graph.facebook.com/v19.0/act_${META_APP_ID}/ads`, {
+  const adRes = await fetch(`https://graph.facebook.com/v19.0/act_${META_AD_ACCOUNT_ID}/ads`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
