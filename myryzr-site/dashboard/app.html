@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RYZR Agent Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0A0A0A;
+      --surface: #1A1A1A;
+      --border: #2a2a2a;
+      --accent: #00FF88;
+      --text: #ffffff;
+      --muted: #888;
+      --danger: #ff4444;
+      --warning: #FFB800;
+    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    .header { display: flex; align-items: center; justify-content: space-between; padding: 20px 32px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 10; }
+    .logo { font-size: 22px; font-weight: 800; color: var(--accent); letter-spacing: -1px; }
+    .header-right { display: flex; align-items: center; gap: 20px; }
+    .sync-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text); border-radius: 8px; padding: 8px 16px; font-size: 13px; cursor: pointer; transition: border-color 0.2s; }
+    .sync-btn:hover { border-color: var(--accent); }
+    .signout-btn { background: none; border: none; color: var(--muted); font-size: 13px; cursor: pointer; }
+    .signout-btn:hover { color: var(--text); }
+    .main { padding: 32px; max-width: 1400px; margin: 0 auto; }
+
+    .budget-bar { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 28px; display: flex; align-items: center; gap: 24px; }
+    .budget-label { font-size: 13px; color: var(--muted); white-space: nowrap; }
+    .budget-track { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+    .budget-fill { height: 100%; background: var(--accent); border-radius: 4px; transition: width 0.5s; }
+    .budget-fill.warn { background: var(--warning); }
+    .budget-fill.full { background: var(--danger); }
+    .budget-amount { font-size: 15px; font-weight: 700; white-space: nowrap; }
+
+    .section-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+    .section { margin-bottom: 40px; }
+
+    .posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .post-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; transition: border-color 0.2s; }
+    .post-card:hover { border-color: #444; }
+    .post-card.boosted { border-color: var(--accent); }
+    .post-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .platform-badge { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; background: var(--border); color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .platform-badge.instagram { background: #2a1a2a; color: #d62976; }
+    .platform-badge.facebook { background: #1a1a2a; color: #4267B2; }
+    .boosted-tag { font-size: 11px; color: var(--accent); font-weight: 700; }
+    .post-message { font-size: 13px; color: #ccc; line-height: 1.5; margin-bottom: 16px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+    .post-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+    .stat { text-align: center; }
+    .stat-val { font-size: 18px; font-weight: 800; color: var(--text); }
+    .stat-lbl { font-size: 11px; color: var(--muted); }
+    .boost-btn { width: 100%; background: var(--accent); color: #000; border: none; border-radius: 8px; padding: 10px; font-size: 13px; font-weight: 700; cursor: pointer; transition: opacity 0.2s; }
+    .boost-btn:hover { opacity: 0.85; }
+    .boost-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .comment-list { display: flex; flex-direction: column; gap: 12px; }
+    .comment-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+    .comment-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .comment-from { font-size: 13px; font-weight: 600; }
+    .comment-time { font-size: 12px; color: var(--muted); }
+    .comment-msg { font-size: 14px; color: #ccc; line-height: 1.5; margin-bottom: 14px; }
+    .comment-actions { display: flex; gap: 10px; }
+    .comment-actions textarea { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; color: var(--text); font-size: 13px; resize: none; outline: none; }
+    .comment-actions textarea:focus { border-color: var(--accent); }
+    .reply-btn { background: var(--accent); color: #000; border: none; border-radius: 8px; padding: 10px 20px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+    .dismiss-btn { background: var(--border); color: var(--muted); border: none; border-radius: 8px; padding: 10px 16px; font-size: 13px; cursor: pointer; }
+
+    .action-list { display: flex; flex-direction: column; gap: 8px; }
+    .action-row { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; display: flex; align-items: center; gap: 16px; font-size: 13px; }
+    .action-type { font-weight: 700; text-transform: uppercase; font-size: 11px; padding: 2px 8px; border-radius: 4px; background: var(--border); color: var(--muted); min-width: 70px; text-align: center; }
+    .action-type.boost { background: #1a2a1a; color: var(--accent); }
+    .action-type.sync { background: #1a1a2a; color: #7090ff; }
+    .action-type.analyze { background: #2a2a1a; color: var(--warning); }
+    .action-detail { flex: 1; color: #ccc; }
+    .action-time { color: var(--muted); white-space: nowrap; }
+    .action-status { font-size: 11px; font-weight: 700; }
+    .action-status.completed { color: var(--accent); }
+    .action-status.failed { color: var(--danger); }
+
+    .empty { text-align: center; padding: 48px; color: var(--muted); font-size: 14px; }
+    .loading { text-align: center; padding: 48px; color: var(--muted); font-size: 14px; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    .tabs { display: flex; gap: 4px; margin-bottom: 24px; border-bottom: 1px solid var(--border); }
+    .tab { padding: 10px 20px; background: none; border: none; color: var(--muted); font-size: 14px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.2s; }
+    .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 20px; font-size: 14px; z-index: 100; transition: opacity 0.3s; opacity: 0; pointer-events: none; }
+    .toast.show { opacity: 1; pointer-events: auto; }
+    .toast.success { border-color: var(--accent); color: var(--accent); }
+    .toast.error { border-color: var(--danger); color: var(--danger); }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">RYZR Agent</div>
+    <div class="header-right">
+      <button class="sync-btn" id="syncBtn">↻ Sync Now</button>
+      <button class="signout-btn" id="signoutBtn">Sign out</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="budget-bar">
+      <span class="budget-label">Daily Ad Budget</span>
+      <div class="budget-track">
+        <div class="budget-fill" id="budgetFill" style="width:0%"></div>
+      </div>
+      <span class="budget-amount" id="budgetAmount">$0.00 / $5.00</span>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="posts">Posts</button>
+      <button class="tab" data-tab="comments">Comments &amp; DMs</button>
+      <button class="tab" data-tab="actions">Agent Log</button>
+    </div>
+
+    <div id="tab-posts" class="section">
+      <div class="section-title">Recent Posts — Performance</div>
+      <div id="postGrid" class="posts-grid"><div class="loading">Loading posts…</div></div>
+    </div>
+
+    <div id="tab-comments" class="section" style="display:none">
+      <div class="section-title">Comments &amp; DMs Queue</div>
+      <div id="commentList" class="comment-list"><div class="loading">Loading comments…</div></div>
+    </div>
+
+    <div id="tab-actions" class="section" style="display:none">
+      <div class="section-title">Agent Action Log</div>
+      <div id="actionList" class="action-list"><div class="loading">Loading log…</div></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const SUPABASE_URL = 'https://fuyzcssdryngvxmmjkvn.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ1eXpjc3NkcnluZ3Z4bW1qa3ZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDI2NjEsImV4cCI6MjA5MjQ3ODY2MX0.AaRxwuC0Mr2FKj-7HbUO3WBCAduR3qQzPN0WM4r_eVQ';
+    const { createClient } = supabase;
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Auth guard — show nothing until session confirmed
+    document.body.style.visibility = 'hidden';
+    sb.auth.getSession().then(({ data: { session } }) => {
+      if (!session) {
+        window.location.replace('/dashboard/index.html');
+      } else {
+        document.body.style.visibility = 'visible';
+        loadAll();
+      }
+    });
+
+    document.getElementById('signoutBtn').addEventListener('click', async () => {
+      await sb.auth.signOut();
+      window.location.replace('/dashboard/index.html');
+    });
+
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const name = tab.dataset.tab;
+        document.querySelectorAll('[id^="tab-"]').forEach(s => s.style.display = 'none');
+        document.getElementById(`tab-${name}`).style.display = '';
+      });
+    });
+
+    function toast(msg, type = 'success') {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.className = `toast show ${type}`;
+      setTimeout(() => el.classList.remove('show'), 3000);
+    }
+
+    function fmt(n) {
+      if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
+      return String(n);
+    }
+
+    function timeAgo(iso) {
+      const d = new Date(iso);
+      const diff = Date.now() - d.getTime();
+      const m = Math.floor(diff / 60000);
+      if (m < 60) return `${m}m ago`;
+      const h = Math.floor(m / 60);
+      if (h < 24) return `${h}h ago`;
+      return `${Math.floor(h / 24)}d ago`;
+    }
+
+    async function loadBudget() {
+      const today = new Date().toISOString().slice(0, 10);
+      const { data } = await sb
+        .from('agent_actions')
+        .select('details')
+        .eq('action_type', 'boost')
+        .eq('status', 'completed')
+        .gte('created_at', `${today}T00:00:00Z`);
+
+      const spent = (data ?? []).reduce((sum, r) => sum + (r.details?.budget_cents ?? 0), 0);
+      const cap = 500;
+      const pct = Math.min((spent / cap) * 100, 100);
+      const fill = document.getElementById('budgetFill');
+      fill.style.width = pct + '%';
+      fill.className = `budget-fill${pct >= 100 ? ' full' : pct >= 80 ? ' warn' : ''}`;
+      document.getElementById('budgetAmount').textContent =
+        `$${(spent / 100).toFixed(2)} / $${(cap / 100).toFixed(2)}`;
+    }
+
+    async function loadPosts() {
+      const { data, error } = await sb
+        .from('agent_post_snapshots')
+        .select('*')
+        .order('engagement', { ascending: false })
+        .limit(24);
+
+      const grid = document.getElementById('postGrid');
+      if (error || !data?.length) {
+        grid.innerHTML = '<div class="empty">No posts synced yet. Click ↻ Sync Now to load posts.</div>';
+        return;
+      }
+
+      grid.innerHTML = data.map(p => `
+        <div class="post-card${p.is_boosted ? ' boosted' : ''}">
+          <div class="post-meta">
+            <span class="platform-badge ${p.platform}">${p.platform}</span>
+            ${p.is_boosted ? '<span class="boosted-tag">⚡ Boosted</span>' : ''}
+          </div>
+          <div class="post-message">${p.message ?? '(no caption)'}</div>
+          <div class="post-stats">
+            <div class="stat"><div class="stat-val">${fmt(p.reach)}</div><div class="stat-lbl">Reach</div></div>
+            <div class="stat"><div class="stat-val">${fmt(p.engagement)}</div><div class="stat-lbl">Engaged</div></div>
+            <div class="stat"><div class="stat-val">${fmt(p.impressions)}</div><div class="stat-lbl">Views</div></div>
+          </div>
+          ${!p.is_boosted ? `<button class="boost-btn" onclick="boostPost('${p.post_id}','${p.platform}')">Boost This Post</button>` : ''}
+        </div>
+      `).join('');
+    }
+
+    async function loadComments() {
+      const { data, error } = await sb
+        .from('agent_comments_queue')
+        .select('*')
+        .eq('status', 'pending')
+        .order('created_at', { ascending: false })
+        .limit(50);
+
+      const list = document.getElementById('commentList');
+      if (error || !data?.length) {
+        list.innerHTML = '<div class="empty">No pending comments or DMs.</div>';
+        return;
+      }
+
+      list.innerHTML = data.map(c => `
+        <div class="comment-card" data-id="${c.id}">
+          <div class="comment-header">
+            <span class="comment-from">${c.from_name ?? 'Unknown'} <span style="color:var(--muted);font-weight:400">via ${c.platform}</span></span>
+            <span class="comment-time">${timeAgo(c.created_at)}</span>
+          </div>
+          <div class="comment-msg">${c.message}</div>
+          <div class="comment-actions">
+            <textarea rows="2" placeholder="Write a reply…" id="reply-${c.id}"></textarea>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <button class="reply-btn" onclick="sendReply('${c.id}','${c.comment_id}','${c.platform}')">Reply</button>
+              <button class="dismiss-btn" onclick="dismissComment('${c.id}')">Dismiss</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function loadActions() {
+      const { data, error } = await sb
+        .from('agent_actions')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(50);
+
+      const list = document.getElementById('actionList');
+      if (error || !data?.length) {
+        list.innerHTML = '<div class="empty">No agent actions logged yet.</div>';
+        return;
+      }
+
+      list.innerHTML = data.map(a => {
+        const detail = a.action_type === 'boost'
+          ? `Boosted post ${a.post_id?.slice(-8)} ($${((a.details?.budget_cents ?? 0) / 100).toFixed(2)})`
+          : a.action_type === 'sync'
+          ? `Synced ${(a.details?.fb_count ?? 0)} FB + ${(a.details?.ig_count ?? 0)} IG posts`
+          : a.action_type === 'analyze'
+          ? `Analysis: ${a.details?.reason ?? ''}`
+          : JSON.stringify(a.details ?? {});
+
+        return `
+          <div class="action-row">
+            <span class="action-type ${a.action_type}">${a.action_type}</span>
+            <span class="action-detail">${detail}</span>
+            <span class="action-time">${timeAgo(a.created_at)}</span>
+            <span class="action-status ${a.status}">${a.status}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function loadAll() {
+      await Promise.all([loadBudget(), loadPosts(), loadComments(), loadActions()]);
+    }
+
+    document.getElementById('syncBtn').addEventListener('click', async () => {
+      const btn = document.getElementById('syncBtn');
+      btn.disabled = true;
+      btn.textContent = '↻ Syncing…';
+      try {
+        const res = await fetch('/api/meta-sync');
+        const data = await res.json();
+        if (data.ok) {
+          toast(`Synced ${data.synced} posts`);
+          await loadAll();
+        } else {
+          toast(data.error ?? 'Sync failed', 'error');
+        }
+      } catch {
+        toast('Sync failed', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '↻ Sync Now';
+      }
+    });
+
+    async function boostPost(postId, platform) {
+      const confirmed = confirm(`Boost this ${platform} post? The agent will create an ad within your $5/day cap.`);
+      if (!confirmed) return;
+      try {
+        const res = await fetch('/api/meta-boost', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ post_id: postId, platform }),
+        });
+        const data = await res.json();
+        if (data.ok) {
+          toast(`Post boosted! Budget: $${(data.budget_cents / 100).toFixed(2)}`);
+          await loadAll();
+        } else {
+          toast(data.error ?? 'Boost failed', 'error');
+        }
+      } catch {
+        toast('Boost failed', 'error');
+      }
+    }
+
+    async function sendReply(rowId, commentId, platform) {
+      const text = document.getElementById(`reply-${rowId}`).value.trim();
+      if (!text) return;
+      try {
+        const res = await fetch('/api/meta-reply', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ comment_id: commentId, platform, reply_text: text }),
+        });
+        if (res.ok) {
+          await sb.from('agent_comments_queue').update({ status: 'replied', reply_text: text, replied_at: new Date().toISOString() }).eq('id', rowId);
+          toast('Reply sent');
+          await loadComments();
+        } else {
+          toast('Reply failed', 'error');
+        }
+      } catch {
+        toast('Reply failed', 'error');
+      }
+    }
+
+    async function dismissComment(rowId) {
+      await sb.from('agent_comments_queue').update({ status: 'dismissed' }).eq('id', rowId);
+      await loadComments();
+    }
+  </script>
+</body>
+</html>

@@ -102,8 +102,9 @@
     const { createClient } = supabase;
     const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+    // Redirect if already logged in
     sb.auth.getSession().then(({ data: { session } }) => {
-      if (session) window.location.href = '/dashboard/app.html';
+      if (session) window.location.replace('/dashboard/app.html');
     });
 
     const form = document.getElementById('loginForm');
@@ -119,15 +120,20 @@
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
 
-      const { error } = await sb.auth.signInWithPassword({ email, password });
+      const { data, error } = await sb.auth.signInWithPassword({ email, password });
 
       if (error) {
         errorEl.textContent = error.message;
         errorEl.style.display = 'block';
         submitBtn.disabled = false;
         submitBtn.textContent = 'Sign In';
+      } else if (data.session) {
+        window.location.replace('/dashboard/app.html');
       } else {
-        window.location.href = '/dashboard/app.html';
+        errorEl.textContent = 'Login failed — please try again.';
+        errorEl.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign In';
       }
     });
   </script>
