@@ -1,1 +1,537 @@
-placeholder
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>RYZR — Train smarter. Get stronger. Live better.</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="description" content="RYZR is the AI-powered fitness app with adaptive plans, real-time form coaching, and 1,300+ exercises — that trains around your injuries and disabilities." />
+<meta name="theme-color" content="#050505" />
+<meta property="og:title" content="RYZR — Train smarter. Get stronger. Live better." />
+<meta property="og:description" content="AI-powered fitness with adaptive plans, real-time form coaching, and 1,300+ exercises — trained around your injuries and disabilities." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/athlete-male.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ryzr-tokens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ryzr-ink);
+    color: #fff;
+    font-family: var(--ryzr-font-body);
+    font-size: 18px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  .wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+
+  .kicker {
+    font-family: var(--ryzr-font-kicker);
+    letter-spacing: 0.26em;
+    color: var(--ryzr-orange);
+    font-size: clamp(18px, 2.4vw, 24px);
+    text-transform: uppercase;
+    margin: 0 0 18px;
+  }
+  .display {
+    font-family: var(--ryzr-font-display);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    margin: 0;
+  }
+  .display em { color: var(--ryzr-orange); font-style: normal; }
+  .lede { color: var(--ryzr-mute); font-size: clamp(18px, 2.2vw, 22px); line-height: 1.45; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 16px 30px;
+    border-radius: var(--ryzr-radius-pill);
+    background: var(--ryzr-orange);
+    color: #0a0a0a;
+    font-weight: 800; font-size: 17px;
+    letter-spacing: 0.01em;
+    border: 0; cursor: pointer;
+    white-space: nowrap;
+    transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover { background: #ff7d35; transform: translateY(-2px); box-shadow: var(--ryzr-shadow-glow); }
+  .btn:active { transform: translateY(0); background: var(--ryzr-orange-dim); }
+  .btn.ghost { background: transparent; border: 1.5px solid var(--ryzr-line); color: #fff; }
+  .btn.ghost:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.25); box-shadow: none; }
+
+  .badges { display: flex; gap: 12px; flex-wrap: wrap; }
+  .badge {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 18px; border-radius: 14px;
+    background: #111; border: 1px solid var(--ryzr-line); color: #fff;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .badge:hover { border-color: rgba(255,255,255,0.22); transform: translateY(-2px); }
+  .badge svg { width: 26px; height: 26px; flex-shrink: 0; }
+  .badge .top { font-size: 10px; color: var(--ryzr-mute); letter-spacing: 0.16em; text-transform: uppercase; }
+  .badge .big { font-family: var(--ryzr-font-display); font-size: 18px; line-height: 1.05; }
+
+  header.nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(5,5,5,0.72);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--ryzr-line);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+  .mark { display: inline-flex; align-items: center; gap: 10px; font-family: var(--ryzr-font-display); font-size: 22px; letter-spacing: 0.08em; }
+  .nav-links { display: flex; align-items: center; gap: 34px; }
+  .nav-links a { color: rgba(255,255,255,0.78); font-size: 15px; font-weight: 600; letter-spacing: 0.01em; transition: color .15s ease; }
+  .nav-links a:hover { color: var(--ryzr-orange); }
+  .nav-cta { display: flex; align-items: center; gap: 14px; }
+  .nav-cta .btn { padding: 11px 22px; font-size: 15px; }
+  .menu-btn { display: none; background: none; border: 0; color: #fff; cursor: pointer; padding: 6px; }
+
+  .mobile-menu {
+    display: none;
+    border-bottom: 1px solid var(--ryzr-line);
+    background: rgba(5,5,5,0.95);
+    backdrop-filter: blur(14px);
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu .wrap { display: flex; flex-direction: column; gap: 4px; padding-top: 14px; padding-bottom: 20px; }
+  .mobile-menu a { padding: 13px 4px; color: rgba(255,255,255,0.82); font-size: 17px; font-weight: 600; border-bottom: 1px solid var(--ryzr-line); }
+  .mobile-menu a:last-child { border-bottom: 0; }
+  .mobile-menu .btn { margin-top: 14px; justify-content: center; }
+
+  .hero { position: relative; overflow: hidden; }
+  .hero .ember {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(50% 45% at 30% 35%, rgba(255,107,26,0.28), transparent 70%),
+      radial-gradient(40% 40% at 90% 10%, rgba(255,80,20,0.16), transparent 70%),
+      var(--ryzr-ink);
+  }
+  .hero .wrap { position: relative; z-index: 2; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 50px; align-items: center; padding-top: 90px; padding-bottom: 90px; }
+  .hero h1 { font-family: var(--ryzr-font-display); font-size: clamp(54px, 8.5vw, 104px); line-height: 0.9; letter-spacing: -0.03em; margin: 0; }
+  .hero h1 em { color: var(--ryzr-orange); font-style: normal; }
+  .hero .lede { margin: 26px 0 34px; max-width: 540px; }
+  .hero .cta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 30px; }
+  .hero .proof { display: flex; gap: 32px; flex-wrap: wrap; }
+  .hero .proof .item .v { font-family: var(--ryzr-font-display); font-size: 30px; color: var(--ryzr-orange); line-height: 1; }
+  .hero .proof .item .l { color: var(--ryzr-mute); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 6px; }
+
+  .hero-photo {
+    position: relative; border-radius: 28px; overflow: hidden;
+    border: 1px solid var(--ryzr-line);
+    box-shadow: var(--ryzr-shadow-card), var(--ryzr-shadow-glow);
+    aspect-ratio: 4 / 5;
+  }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; }
+  .hero-photo .grad { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(5,5,5,0.85)); }
+  .hero-photo .float-card {
+    position: absolute; left: 22px; bottom: 22px; right: 22px;
+    background: rgba(15,15,15,0.85); backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,107,26,0.4); border-radius: 18px;
+    padding: 16px 20px; display: flex; align-items: center; gap: 16px;
+  }
+  .hero-photo .float-card .score { font-family: var(--ryzr-font-display); font-size: 52px; color: var(--ryzr-orange); line-height: 1; }
+  .hero-photo .float-card .meta .l { font-family: var(--ryzr-font-kicker); letter-spacing: 0.2em; color: var(--ryzr-mute); font-size: 13px; }
+  .hero-photo .float-card .meta .d { font-size: 15px; color: #fff; }
+
+  section { padding: clamp(70px, 9vw, 120px) 0; position: relative; }
+  .sec-head { max-width: 760px; margin-bottom: 56px; }
+  .sec-head h2 { font-family: var(--ryzr-font-display); font-size: clamp(38px, 5.5vw, 68px); line-height: 0.95; letter-spacing: -0.025em; margin: 0; }
+  .sec-head h2 em { color: var(--ryzr-orange); font-style: normal; }
+  .sec-head p { color: var(--ryzr-mute); font-size: clamp(17px, 2vw, 21px); margin: 20px 0 0; }
+
+  .around { background: #080808; border-top: 1px solid var(--ryzr-line); border-bottom: 1px solid var(--ryzr-line); }
+  .around .grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
+  .around .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .feature-card {
+    background: var(--ryzr-card); border: 1px solid var(--ryzr-line); border-radius: var(--ryzr-radius-card);
+    padding: 26px; transition: border-color .18s ease, transform .18s ease;
+  }
+  .feature-card:hover { border-color: rgba(255,107,26,0.35); transform: translateY(-3px); }
+  .feature-card .ico { width: 46px; height: 46px; border-radius: 12px; background: rgba(255,107,26,0.12); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  .feature-card .ico svg { width: 24px; height: 24px; stroke: var(--ryzr-orange); }
+  .feature-card h3 { font-family: var(--ryzr-font-display); font-size: 21px; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .feature-card p { color: var(--ryzr-mute); font-size: 15px; margin: 0; line-height: 1.5; }
+
+  .coach .grid { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 56px; align-items: center; }
+  .coach .photo { position: relative; border-radius: 28px; overflow: hidden; border: 1px solid var(--ryzr-line); box-shadow: var(--ryzr-shadow-card); aspect-ratio: 3 / 4; }
+  .coach .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+  .coach .photo .scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,5,5,0.2), transparent 40%, rgba(5,5,5,0.55)); }
+  .coach .tips { display: flex; flex-direction: column; gap: 12px; margin-top: 30px; max-width: 480px; }
+  .tip { display: flex; gap: 13px; align-items: flex-start; padding: 16px 18px; border-radius: 14px; background: rgba(255,255,255,0.04); font-size: 16px; line-height: 1.4; }
+  .tip.warn { border-left: 3px solid var(--ryzr-warn); }
+  .tip.info { border-left: 3px solid var(--ryzr-info); }
+  .tip.good { border-left: 3px solid var(--ryzr-orange); }
+  .tip .dot { font-weight: 800; }
+
+  .library { background: #080808; border-top: 1px solid var(--ryzr-line); overflow: hidden; position: relative; }
+  .library .big-num { font-family: var(--ryzr-font-display); font-size: clamp(110px, 20vw, 280px); line-height: 0.82; color: var(--ryzr-orange); letter-spacing: -0.05em; text-shadow: 0 10px 80px rgba(255,107,26,0.3); }
+  .library .big-num .plus { font-size: 0.6em; vertical-align: top; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; max-width: 900px; }
+  .chip { padding: 11px 18px; border-radius: 999px; border: 1px solid var(--ryzr-line); color: rgba(255,255,255,0.7); font-size: 15px; background: rgba(255,255,255,0.02); }
+  .chip.hot { border-color: var(--ryzr-orange); color: var(--ryzr-orange); background: rgba(255,107,26,0.08); }
+
+  .results .grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center; }
+  .chartcard { background: linear-gradient(180deg, #111, #0a0a0a); border: 1px solid var(--ryzr-line); border-radius: var(--ryzr-radius-card); padding: 30px; box-shadow: var(--ryzr-shadow-card); }
+  .chartcard h4 { font-family: var(--ryzr-font-kicker); letter-spacing: 0.18em; color: var(--ryzr-mute); font-size: 16px; font-weight: 400; margin: 0; }
+  .chartcard .num { font-family: var(--ryzr-font-display); font-size: 52px; line-height: 1; margin: 6px 0 0; }
+  .chartcard .delta { color: var(--ryzr-orange); font-weight: 800; font-size: 17px; margin-top: 2px; }
+  .chartcard svg { width: 100%; height: auto; display: block; margin-top: 10px; }
+
+  .compare { background: #080808; border-top: 1px solid var(--ryzr-line); }
+  .compare .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .col { border-radius: var(--ryzr-radius-card); padding: 36px; }
+  .col.bad { background: rgba(255,255,255,0.03); border: 1px solid var(--ryzr-line); }
+  .col.good { background: linear-gradient(180deg, rgba(255,107,26,0.12), rgba(255,107,26,0.02)); border: 1px solid rgba(255,107,26,0.4); }
+  .col .ctitle { font-family: var(--ryzr-font-kicker); letter-spacing: 0.2em; font-size: 20px; margin-bottom: 20px; }
+  .col.bad .ctitle { color: var(--ryzr-mute); }
+  .col.good .ctitle { color: var(--ryzr-orange); }
+  .col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  .col.bad li { color: rgba(255,255,255,0.4); font-size: 18px; text-decoration: line-through; text-decoration-color: rgba(255,255,255,0.25); }
+  .col.good li { color: #fff; font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 12px; }
+  .col.good li::before { content: ""; width: 8px; height: 8px; background: var(--ryzr-orange); border-radius: 999px; flex-shrink: 0; }
+
+  .testi { text-align: center; }
+  .testi .stars { color: var(--ryzr-orange); font-size: 26px; letter-spacing: 5px; margin-bottom: 26px; }
+  .testi blockquote { font-family: var(--ryzr-font-display); font-size: clamp(32px, 5vw, 60px); line-height: 1.02; letter-spacing: -0.02em; margin: 0 auto; max-width: 960px; }
+  .testi blockquote em { color: var(--ryzr-orange); font-style: normal; }
+  .testi .who { display: inline-flex; align-items: center; gap: 14px; margin-top: 34px; }
+  .testi .who .avatar { width: 56px; height: 56px; border-radius: 999px; background: var(--ryzr-card); border: 2px solid var(--ryzr-orange); overflow: hidden; }
+  .testi .who .avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .testi .who .n { font-family: var(--ryzr-font-display); font-size: 18px; text-align: left; }
+  .testi .who .m { color: var(--ryzr-mute); font-size: 14px; text-align: left; }
+
+  .final { position: relative; overflow: hidden; text-align: center; border-top: 1px solid var(--ryzr-line); }
+  .final .ember { position: absolute; inset: 0; z-index: 0; background: radial-gradient(55% 70% at 50% 75%, rgba(255,107,26,0.25), transparent 70%), var(--ryzr-ink); }
+  .final .wrap { position: relative; z-index: 2; }
+  .final h2 { font-family: var(--ryzr-font-display); font-size: clamp(44px, 7vw, 92px); line-height: 0.92; letter-spacing: -0.03em; margin: 0 auto; max-width: 900px; }
+  .final h2 em { color: var(--ryzr-orange); font-style: normal; }
+  .final p { color: var(--ryzr-mute); font-size: clamp(18px, 2.2vw, 22px); margin: 24px auto 38px; max-width: 560px; }
+  .final .badges { justify-content: center; }
+
+  footer.site { border-top: 1px solid var(--ryzr-line); padding: 56px 0 40px; }
+  footer.site .grid { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; align-items: flex-start; }
+  footer.site .col-links { display: flex; gap: 64px; flex-wrap: wrap; }
+  footer.site h5 { font-family: var(--ryzr-font-kicker); letter-spacing: 0.18em; color: var(--ryzr-mute); font-size: 14px; font-weight: 400; margin: 0 0 16px; text-transform: uppercase; }
+  footer.site a { display: block; color: rgba(255,255,255,0.7); font-size: 15px; margin-bottom: 11px; transition: color .15s ease; }
+  footer.site a:hover { color: var(--ryzr-orange); }
+  footer.site .legal { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--ryzr-line); display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; color: var(--ryzr-mute); font-size: 13px; }
+
+  .reveal { opacity: 1; transform: none; }
+
+  @media (max-width: 920px) {
+    .nav-links { display: none; }
+    .menu-btn { display: inline-flex; }
+    .hero .wrap { grid-template-columns: 1fr; gap: 40px; }
+    .hero-photo { max-width: 460px; }
+    .around .grid, .coach .grid, .results .grid { grid-template-columns: 1fr; gap: 36px; }
+    .coach .photo, .hero-photo { max-width: 520px; margin: 0 auto; }
+  }
+  @media (max-width: 620px) {
+    .compare .cols { grid-template-columns: 1fr; }
+    .around .cards { grid-template-columns: 1fr; }
+    .hero .proof { gap: 22px; }
+    .nav-cta .btn.ghost { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="mark" href="#top"><span>RYZR</span></a>
+    <nav class="nav-links">
+      <a href="#coach">Form Coach</a>
+      <a href="#around">Trains Around You</a>
+      <a href="#library">Exercises</a>
+      <a href="#results">Results</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn ghost" href="https://apps.apple.com/us/app/ryzr/id6767086947?ppid=252d929e-1832-4976-9231-0d6f142d5e7c">Sign in</a>
+      <a class="btn" href="https://apps.apple.com/us/app/ryzr/id6767086947?ppid=252d929e-1832-4976-9231-0d6f142d5e7c">Get RYZR</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="wrap">
+      <a href="#coach">Form Coach</a>
+      <a href="#around">Trains Around You</a>
+      <a href="#library">Exercises</a>
+      <a href="#results">Results</a>
+      <a class="btn" href="https://apps.apple.com/us/app/ryzr/id6767086947?ppid=252d929e-1832-4976-9231-0d6f142d5e7c">Get RYZR</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="ember"></div>
+    <div class="wrap">
+      <div class="hero-copy reveal">
+        <p class="kicker">AI-Powered Fitness</p>
+        <h1>Workouts built around <em>you.</em></h1>
+        <p class="lede">Adaptive AI plans, real-time form coaching, and 1,300+ exercises — programmed around your goals, your gear, and even your injuries. Train smarter. Get stronger. Live better.</p>
+        <div class="cta-row">
+          <a class="btn" href="https://apps.apple.com/us/app/ryzr/id6767086947?ppid=252d929e-1832-4976-9231-0d6f142d5e7c">Start free — no card</a>
+          <a class="btn ghost" href="#coach">See how it works</a>
+        </div>
+        <div class="proof">
+          <div class="item"><div class="v">1,300+</div><div class="l">Exercises</div></div>
+          <div class="item"><div class="v">Real-time</div><div class="l">Form coaching</div></div>
+          <div class="item"><div class="v">Adaptive</div><div class="l">Every session</div></div>
+        </div>
+      </div>
+      <div class="hero-photo reveal">
+        <img src="assets/athlete-male.png" alt="Athlete training with RYZR" width="1176" height="1760" />
+        <div class="grad"></div>
+        <div class="float-card">
+          <div class="score">91</div>
+          <div class="meta">
+            <div class="l">FORM SCORE</div>
+            <div class="d">Great depth — drive through your heels.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="around" id="around">
+    <div class="wrap">
+      <div class="grid">
+        <div class="reveal">
+          <p class="kicker">Built for every body</p>
+          <h2 class="display" style="font-size:clamp(38px,5.5vw,64px)">Trains around your <em>injuries</em> &amp; disabilities.</h2>
+          <p class="lede" style="margin-top:22px; max-width:520px;">Most apps hand you the same plan as everyone else. RYZR asks what's going on with your body — a bad shoulder, a knee rebuild, limited mobility — and programs around it. Every exercise has a compatible swap, one tap away.</p>
+          <a class="btn" href="https://apps.apple.com/us/app/ryzr/id6767086947?ppid=252d929e-1832-4976-9231-0d6f142d5e7c" style="margin-top:30px;">Build my plan</a>
+        </div>
+        <div class="cards reveal">
+          <div class="feature-card">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+            <h3>Injury-aware</h3>
+            <p>Flag a tweak or a long-term limitation and RYZR routes around it automatically.</p>
+          </div>
+          <div class="feature-card">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div>
+            <h3>One-tap swaps</h3>
+            <p>Every move has a compatible alternative for your equipment and ability.</p>
+          </div>
+          <div class="feature-card">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+            <h3>Adaptive recovery</h3>
+            <p>Skip or scale a session and the plan reshapes the week — no guilt, no reset.</p>
+          </div>
+          <div class="feature-card">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg></div>
+            <h3>Pain-free progress</h3>
+            <p>Load increases only when your form and recovery say you're ready.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="coach" id="coach">
+    <div class="wrap">
+      <div class="grid">
+        <div class="photo reveal">
+          <img src="assets/athlete-female.png" alt="Real-time form coaching in RYZR" width="1176" height="1760" />
+          <div class="scrim"></div>
+        </div>
+        <div class="reveal">
+          <p class="kicker">AI Form Coach</p>
+          <h2 class="display" style="font-size:clamp(38px,5.5vw,64px)">Your coach. <em>In your camera.</em></h2>
+          <p class="lede" style="margin-top:20px; max-width:480px;">Point your phone and get a Form Score on every set. Knees, hips, depth, tempo — coached the moment it happens. The kind of cueing you'd pay a trainer for, on every rep.</p>
+          <div class="tips">
+            <div class="tip good"><span class="dot" style="color:var(--ryzr-orange)">&#10003;</span><span><strong>Form Score 91</strong> — great depth and bar path.</span></div>
+            <div class="tip warn"><span class="dot" style="color:var(--ryzr-warn)">&#9888;</span><span>Push your knees out — track them over your toes.</span></div>
+            <div class="tip info"><span class="dot" style="color:var(--ryzr-info)">i</span><span>Chest up — keep your torso a touch more upright.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="library" id="library">
+    <div class="wrap reveal">
+      <p class="kicker">The library that teaches</p>
+      <div class="big-num">1,300<span class="plus">+</span></div>
+      <h2 class="display" style="font-size:clamp(34px,5vw,60px); margin-top:8px;">exercises. <em>One plan.</em> Yours.</h2>
+      <p class="lede" style="margin-top:18px; max-width:640px;">Setup, execution, and common mistakes for every move — so you train with confidence. Lift, run, mobilize, sculpt: it's all programmed into one adaptive plan.</p>
+      <div class="chips">
+        <span class="chip">Back Squat</span><span class="chip hot">Deadlift</span><span class="chip">Bench Press</span>
+        <span class="chip">Romanian DL</span><span class="chip">Pull-Up</span><span class="chip hot">Hip Thrust</span>
+        <span class="chip">Bulgarian Split Squat</span><span class="chip">Overhead Press</span><span class="chip">Walking Lunge</span>
+        <span class="chip hot">Kettlebell Swing</span><span class="chip">Plank</span><span class="chip">Bent-Over Row</span>
+        <span class="chip">Lat Pulldown</span><span class="chip">Goblet Squat</span><span class="chip hot">Turkish Get-Up</span>
+        <span class="chip">Face Pull</span><span class="chip">Hammer Curl</span><span class="chip">Box Jump</span>
+        <span class="chip">Farmer Carry</span><span class="chip">Step-Up</span><span class="chip">+ 1,280 more</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="results" id="results">
+    <div class="wrap">
+      <div class="grid">
+        <div class="reveal">
+          <p class="kicker">Real results</p>
+          <h2 class="display" style="font-size:clamp(38px,5.5vw,64px)"><em>+12.5 kg</em><br>in 8 weeks.</h2>
+          <p class="lede" style="margin-top:20px; max-width:440px;">Every set logged, every PR tracked. A plan that learns from your numbers and pushes the next rep — automatically.</p>
+          <div class="proof" style="display:flex; gap:34px; margin-top:30px;">
+            <div class="item"><div class="v" style="font-family:var(--ryzr-font-display); font-size:34px; color:var(--ryzr-orange); line-height:1;">48</div><div class="l" style="color:var(--ryzr-mute); font-size:13px; letter-spacing:0.1em; text-transform:uppercase; margin-top:6px;">Sessions</div></div>
+            <div class="item"><div class="v" style="font-family:var(--ryzr-font-display); font-size:34px; color:var(--ryzr-orange); line-height:1;">12d</div><div class="l" style="color:var(--ryzr-mute); font-size:13px; letter-spacing:0.1em; text-transform:uppercase; margin-top:6px;">Streak</div></div>
+            <div class="item"><div class="v" style="font-family:var(--ryzr-font-display); font-size:34px; color:var(--ryzr-orange); line-height:1;">4</div><div class="l" style="color:var(--ryzr-mute); font-size:13px; letter-spacing:0.1em; text-transform:uppercase; margin-top:6px;">New PRs</div></div>
+          </div>
+        </div>
+        <div class="chartcard reveal">
+          <h4>DEADLIFT &middot; STRENGTH PROGRESSION</h4>
+          <div class="num">92.5 kg</div>
+          <div class="delta">+12.5 kg in 8 weeks</div>
+          <svg viewBox="0 0 680 280" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="g2" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#FF6B1A" stop-opacity="0.4"/>
+                <stop offset="100%" stop-color="#FF6B1A" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M30,200 L120,180 L210,180 L300,235 L390,135 L480,110 L560,90 L650,55 L650,280 L30,280 Z" fill="url(#g2)"/>
+            <path d="M30,200 L120,180 L210,180 L300,235 L390,135 L480,110 L560,90 L650,55" fill="none" stroke="#FF6B1A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="30" cy="200" r="7" fill="#FF6B1A" stroke="#0a0a0a" stroke-width="3"/>
+            <circle cx="300" cy="235" r="7" fill="#FF6B1A" stroke="#0a0a0a" stroke-width="3"/>
+            <circle cx="650" cy="55" r="8" fill="#FF6B1A" stroke="#0a0a0a" stroke-width="3"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="compare">
+    <div class="wrap">
+      <div class="sec-head reveal" style="margin-bottom:48px;">
+        <p class="kicker">A new kind of fitness app</p>
+        <h2>Zero fluff. <em>All gains.</em></h2>
+      </div>
+      <div class="cols reveal">
+        <div class="col bad">
+          <div class="ctitle">Other apps</div>
+          <ul>
+            <li>Calorie guilt</li>
+            <li>Endless menus</li>
+            <li>Cookie-cutter plans</li>
+            <li>"Just do 50 burpees"</li>
+            <li>Generic form tips</li>
+            <li>Ignores your injuries</li>
+          </ul>
+        </div>
+        <div class="col good">
+          <div class="ctitle">RYZR</div>
+          <ul>
+            <li>Plans that adapt</li>
+            <li>One tap to start</li>
+            <li>Built around you</li>
+            <li>Smart progression</li>
+            <li>Live AI form coach</li>
+            <li>Trains around injuries</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testi">
+    <div class="wrap reveal">
+      <div class="stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+      <blockquote>"It's like having a coach in my pocket. <em>Best fitness app I've ever used.</em>"</blockquote>
+      <div class="who">
+        <div class="avatar"><img src="assets/athlete-male.png" alt="Marcus T." /></div>
+        <div>
+          <div class="n">Marcus T., 28</div>
+          <div class="m">RYZR member &middot; 6 months</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final" id="final">
+    <div class="ember"></div>
+    <div class="wrap reveal">
+      <h2>Train smarter.<br>Get stronger. <em>Live better.</em></h2>
+      <p>Your first session is free — no credit card, no commitment. Just coaching.</p>
+      <div class="cta-row" style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:30px;">
+        <a class="btn" href="https://apps.apple.com/us/app/ryzr/id6767086947?ppid=252d929e-1832-4976-9231-0d6f142d5e7c" style="padding:18px 36px; font-size:19px;">Start free</a>
+      </div>
+      <div class="badges">
+        <a class="badge" href="https://apps.apple.com/us/app/ryzr/id6767086947?ppid=252d929e-1832-4976-9231-0d6f142d5e7c"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.04c-.02-2.05 1.68-3.03 1.75-3.08-0.95-1.4-2.44-1.59-2.97-1.61-1.26-.13-2.47.74-3.11.74-.64 0-1.63-.72-2.69-.7-1.38.02-2.66.8-3.37 2.04-1.44 2.49-.37 6.17 1.03 8.19.68.99 1.49 2.1 2.55 2.06 1.03-.04 1.42-.66 2.66-.66 1.24 0 1.59.66 2.68.64 1.11-.02 1.81-1 2.49-1.99.78-1.14 1.1-2.25 1.12-2.31-.02-.01-2.15-.82-2.17-3.25zM15.1 6.13c.56-.68.94-1.63.84-2.58-.81.03-1.79.54-2.37 1.22-.52.6-.98 1.56-.86 2.48.9.07 1.83-.46 2.39-1.12z"/></svg><div><div class="top">Download on the</div><div class="big">App Store</div></div></a>
+        <a class="badge" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.4c-.2.3-.3.7-.3 1.2v16.8c0 .5.1.9.3 1.2l9.1-9.6L3.6 2.4zm10.1 8.4l2.6-2.7-9-5.1c-.4-.2-.8-.2-1.1-.1l7.5 7.9zm0 1.4l-7.5 7.9c.3.1.7.1 1.1-.1l9-5.1-2.6-2.7zm5-2.6l-2.1 1.2 2.4 2.5c.6-.4 1-1 1-1.7s-.4-1.3-1.3-2z"/></svg><div><div class="top">Get it on</div><div class="big">Google Play</div></div></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <a class="mark" href="#top"><span>RYZR</span></a>
+        <p style="color:var(--ryzr-mute); font-size:14px; max-width:260px; margin:16px 0 0;">AI-powered fitness. Train smarter, get stronger, live better.</p>
+      </div>
+      <div class="col-links">
+        <div>
+          <h5>Product</h5>
+          <a href="#coach">Form Coach</a>
+          <a href="#library">Exercises</a>
+          <a href="#results">Progress</a>
+          <a href="#final">Pricing</a>
+        </div>
+        <div>
+          <h5>Company</h5>
+          <a href="#">About</a>
+          <a href="#">Careers</a>
+          <a href="#">Blog</a>
+          <a href="#">Contact</a>
+        </div>
+        <div>
+          <h5>Legal</h5>
+          <a href="privacy-policy.html">Privacy</a>
+          <a href="terms-of-service.html">Terms</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      <span>&#169; 2026 RYZR. All rights reserved.</span>
+      <span>Made for people who train.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var btn = document.getElementById('menuBtn');
+    var menu = document.getElementById('mobileMenu');
+    if (!btn || !menu) return;
+    function setOpen(open) {
+      menu.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    btn.addEventListener('click', function () { setOpen(!menu.classList.contains('open')); });
+    menu.addEventListener('click', function (e) { if (e.target.tagName === 'A') setOpen(false); });
+  })();
+</script>
+
+</body>
+</html>
