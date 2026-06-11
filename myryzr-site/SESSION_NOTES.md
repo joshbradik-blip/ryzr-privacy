@@ -24,6 +24,7 @@ A Meta social media management agent at **myryzr.com** with:
 | FB Page ID | `1123814624155695` |
 | IG Account ID | `17841422825954736` |
 | Meta App ID | `2738783623145877` |
+| Meta Ad Account ID | `2954620084886474` |
 | Daily Ad Cap | `500` cents = $5.00 |
 | Webhook Verify Token | `ryzr_webhook_verify` |
 | Webhook URL | `https://www.myryzr.com/api/meta-webhook` |
@@ -40,6 +41,7 @@ META_USER_TOKEN          ← long-lived Graph API token
 META_PAGE_ID             = 1123814624155695
 META_IG_ACCOUNT_ID       = 17841422825954736
 META_APP_ID              = 2738783623145877
+META_AD_ACCOUNT_ID       = 2954620084886474
 META_DAILY_AD_BUDGET     = 500
 META_WEBHOOK_VERIFY_TOKEN = ryzr_webhook_verify
 ANTHROPIC_API_KEY
@@ -119,6 +121,8 @@ myryzr-site/
 ## Known Issues / To-Do
 
 - [ ] Flip Meta app from **Development → Live** mode
+- [ ] Add `META_AD_ACCOUNT_ID = 2954620084886474` to Netlify env vars
+- [ ] Add payment method at business.facebook.com → Settings → Billing & Payments
 - [ ] Revoke old Netlify PAT `nfp_ms2aPEyFdRdvEPGZhHHVvEdDaMZCXXTu8ed0`
 - [ ] `athlete-male.png` and `athlete-female.png` must be manually copied to `assets/` before each deploy (too large for GitHub)
 - [ ] Meta token (`META_USER_TOKEN`) will eventually expire — regenerate in Graph API Explorer when it does
