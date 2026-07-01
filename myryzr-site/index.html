@@ -106,40 +106,36 @@
   .mobile-menu a:last-child { border-bottom: 0; }
   .mobile-menu .btn { margin-top: 14px; justify-content: center; }
 
-  .hero { position: relative; overflow: hidden; }
-  .hero .ember {
-    position: absolute; inset: 0; z-index: 0;
-    background:
-      radial-gradient(50% 45% at 30% 35%, rgba(255,107,26,0.28), transparent 70%),
-      radial-gradient(40% 40% at 90% 10%, rgba(255,80,20,0.16), transparent 70%),
-      var(--ryzr-ink);
-  }
-  .hero .wrap { position: relative; z-index: 2; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 50px; align-items: center; padding-top: 90px; padding-bottom: 90px; }
-  .hero h1 { font-family: var(--ryzr-font-display); font-size: clamp(54px, 8.5vw, 104px); line-height: 0.9; letter-spacing: -0.03em; margin: 0; }
-  .hero h1 em { color: var(--ryzr-orange); font-style: normal; }
-  .hero .lede { margin: 26px 0 34px; max-width: 540px; }
-  .hero .cta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 30px; }
-  .hero .proof { display: flex; gap: 32px; flex-wrap: wrap; }
-  .hero .proof .item .v { font-family: var(--ryzr-font-display); font-size: 30px; color: var(--ryzr-orange); line-height: 1; }
-  .hero .proof .item .l { color: var(--ryzr-mute); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 6px; }
-
-  .hero-photo {
-    position: relative; border-radius: 28px; overflow: hidden;
+  .hero { position: relative; overflow: hidden; padding: clamp(26px, 4vw, 52px) 0 clamp(52px, 7vw, 88px); }
+  .hero .wrap { max-width: 1180px; }
+  /* The ad plays as a self-contained 16:9 showpiece — no text overlaid, so its own
+     headline, phone mockup, and CTA stay crisp and never collide with the site copy. */
+  .hero-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--ryzr-radius-card);
+    overflow: hidden;
     border: 1px solid var(--ryzr-line);
     box-shadow: var(--ryzr-shadow-card), var(--ryzr-shadow-glow);
-    aspect-ratio: 4 / 5;
+    background: #000 center / cover no-repeat;
   }
-  .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; }
-  .hero-photo .grad { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(5,5,5,0.85)); }
-  .hero-photo .float-card {
-    position: absolute; left: 22px; bottom: 22px; right: 22px;
-    background: rgba(15,15,15,0.85); backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,107,26,0.4); border-radius: 18px;
-    padding: 16px 20px; display: flex; align-items: center; gap: 16px;
+  .hero-video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
   }
-  .hero-photo .float-card .score { font-family: var(--ryzr-font-display); font-size: 52px; color: var(--ryzr-orange); line-height: 1; }
-  .hero-photo .float-card .meta .l { font-family: var(--ryzr-font-kicker); letter-spacing: 0.2em; color: var(--ryzr-mute); font-size: 13px; }
-  .hero-photo .float-card .meta .d { font-size: 15px; color: #fff; }
+  .hero-copy { text-align: center; max-width: 780px; margin: clamp(32px, 5vw, 56px) auto 0; }
+  .hero-copy .kicker { margin-bottom: 16px; }
+  .hero h1 { font-family: var(--ryzr-font-display); font-size: clamp(44px, 7.5vw, 96px); line-height: 0.9; letter-spacing: -0.03em; margin: 0; }
+  .hero h1 em { color: var(--ryzr-orange); font-style: normal; }
+  .hero .lede { margin: 22px auto 32px; max-width: 620px; }
+  .hero .cta-row { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 34px; }
+  .hero .proof { display: flex; justify-content: center; gap: 44px; flex-wrap: wrap; }
+  .hero .proof .item { text-align: center; }
+  .hero .proof .item .v { font-family: var(--ryzr-font-display); font-size: 30px; color: var(--ryzr-orange); line-height: 1; }
+  .hero .proof .item .l { color: var(--ryzr-mute); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 6px; }
 
   section { padding: clamp(70px, 9vw, 120px) 0; position: relative; }
   .sec-head { max-width: 760px; margin-bottom: 56px; }
@@ -226,13 +222,94 @@
 
   .reveal { opacity: 1; transform: none; }
 
+  /* ===== App Preview popup ===== */
+  .preview-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    display: none; align-items: center; justify-content: center;
+    padding: 24px;
+    background: rgba(3,3,3,0.78);
+    backdrop-filter: blur(10px);
+    opacity: 0; transition: opacity .28s ease;
+  }
+  .preview-overlay.open { display: flex; }
+  .preview-overlay.visible { opacity: 1; }
+  body.preview-locked { overflow: hidden; }
+
+  .preview-dialog {
+    position: relative;
+    width: 100%; max-width: 940px;
+    max-height: calc(100vh - 48px);
+    overflow: auto;
+    background: linear-gradient(180deg, #121212, #0a0a0a);
+    border: 1px solid rgba(255,107,26,0.4);
+    border-radius: var(--ryzr-radius-card);
+    box-shadow: var(--ryzr-shadow-card), var(--ryzr-shadow-glow);
+    display: grid; grid-template-columns: 1.05fr 0.95fr;
+    transform: translateY(16px) scale(0.98);
+    transition: transform .28s ease;
+  }
+  .preview-overlay.visible .preview-dialog { transform: none; }
+
+  .preview-close {
+    position: absolute; top: 14px; right: 14px; z-index: 3;
+    width: 40px; height: 40px; border-radius: 999px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.06); border: 1px solid var(--ryzr-line);
+    color: #fff; cursor: pointer;
+    transition: background .15s ease, border-color .15s ease, transform .15s ease;
+  }
+  .preview-close:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.3); transform: rotate(90deg); }
+  .preview-close svg { width: 20px; height: 20px; }
+
+  .preview-copy { padding: 46px 40px; display: flex; flex-direction: column; justify-content: center; }
+  .preview-copy .kicker { margin-bottom: 14px; }
+  .preview-copy h2 { font-family: var(--ryzr-font-display); font-size: clamp(30px, 4vw, 44px); line-height: 0.95; letter-spacing: -0.02em; margin: 0; }
+  .preview-copy h2 em { color: var(--ryzr-orange); font-style: normal; }
+  .preview-copy p { color: var(--ryzr-mute); font-size: 16px; line-height: 1.5; margin: 16px 0 0; }
+  .preview-copy .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .preview-copy .cta-row .btn { padding: 14px 26px; font-size: 16px; }
+
+  .preview-media { position: relative; display: flex; align-items: center; justify-content: center; padding: 40px 30px; background: radial-gradient(60% 55% at 50% 40%, rgba(255,107,26,0.18), transparent 70%); border-left: 1px solid var(--ryzr-line); }
+
+  /* Phone mockup of the app */
+  .phone { position: relative; width: 260px; max-width: 100%; aspect-ratio: 9 / 19; background: #000; border: 8px solid #1a1a1a; border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.6), var(--ryzr-shadow-glow); overflow: hidden; }
+  .phone .notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 92px; height: 22px; background: #000; border-radius: 999px; z-index: 4; }
+  .phone .screen { position: absolute; inset: 0; padding: 34px 16px 18px; display: flex; flex-direction: column; gap: 12px; background: linear-gradient(180deg, #0d0d0d, #050505); }
+  .app-top { display: flex; align-items: center; justify-content: space-between; }
+  .app-top .hi { font-size: 11px; color: var(--ryzr-mute); }
+  .app-top .hi strong { display: block; font-family: var(--ryzr-font-display); font-size: 16px; color: #fff; letter-spacing: 0.02em; }
+  .app-top .mark-sm { font-family: var(--ryzr-font-display); font-size: 15px; letter-spacing: 0.1em; color: var(--ryzr-orange); }
+  .app-card { background: var(--ryzr-card); border: 1px solid var(--ryzr-line); border-radius: 16px; padding: 14px; }
+  .app-card .label { font-family: var(--ryzr-font-kicker); letter-spacing: 0.18em; font-size: 10px; color: var(--ryzr-mute); text-transform: uppercase; }
+  .app-card .title { font-family: var(--ryzr-font-display); font-size: 15px; margin-top: 4px; }
+  .app-ring { display: flex; align-items: center; gap: 14px; }
+  .app-ring svg { width: 66px; height: 66px; flex-shrink: 0; }
+  .app-ring .score { font-family: var(--ryzr-font-display); font-size: 13px; }
+  .app-ring .score em { color: var(--ryzr-orange); font-style: normal; }
+  .app-ring .sub { font-size: 10px; color: var(--ryzr-mute); margin-top: 2px; line-height: 1.3; }
+  .app-tip { display: flex; gap: 8px; align-items: flex-start; font-size: 10.5px; line-height: 1.35; color: rgba(255,255,255,0.85); padding: 10px; border-radius: 10px; background: rgba(255,255,255,0.04); border-left: 2px solid var(--ryzr-orange); }
+  .app-cta { margin-top: auto; text-align: center; background: var(--ryzr-orange); color: #0a0a0a; font-weight: 800; font-size: 12px; padding: 11px; border-radius: 999px; }
+
+  @media (max-width: 720px) {
+    .preview-dialog { grid-template-columns: 1fr; max-width: 420px; }
+    .preview-media { border-left: 0; border-top: 1px solid var(--ryzr-line); order: -1; padding: 36px 20px 10px; }
+    .preview-copy { padding: 30px 26px 34px; text-align: center; }
+    .preview-copy .cta-row { justify-content: center; }
+    .phone { width: 210px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .preview-overlay, .preview-dialog { transition: none; }
+    .preview-dialog { transform: none; }
+    /* Suppress the motion; the stage falls back to its poster image (set inline). */
+    .hero-video { display: none; }
+  }
+
   @media (max-width: 920px) {
     .nav-links { display: none; }
     .menu-btn { display: inline-flex; }
-    .hero .wrap { grid-template-columns: 1fr; gap: 40px; }
-    .hero-photo { max-width: 460px; }
     .around .grid, .coach .grid, .results .grid { grid-template-columns: 1fr; gap: 36px; }
-    .coach .photo, .hero-photo { max-width: 520px; margin: 0 auto; }
+    .coach .photo { max-width: 520px; margin: 0 auto; }
   }
   @media (max-width: 620px) {
     .compare .cols { grid-template-columns: 1fr; }
@@ -247,6 +324,54 @@
 </style>
 </head>
 <body>
+
+<!-- App Preview popup — auto-opens once per visitor; close via X, backdrop, or Esc -->
+<div class="preview-overlay" id="previewOverlay" role="dialog" aria-modal="true" aria-labelledby="previewTitle" aria-hidden="true">
+  <div class="preview-dialog">
+    <button class="preview-close" id="previewClose" type="button" aria-label="Close preview">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="preview-copy">
+      <p class="kicker">See it in action</p>
+      <h2 id="previewTitle">A peek inside <em>RYZR.</em></h2>
+      <p>Adaptive plans, a live AI Form Score, and coaching cues on every rep — all in one app that trains around you. Here's what your day looks like.</p>
+      <div class="cta-row">
+        <a class="btn" href="https://apps.apple.com/us/app/ryzr/id6767086947?ppid=252d929e-1832-4976-9231-0d6f142d5e7c">Start free — no card</a>
+        <button class="btn ghost" type="button" id="previewDismiss">Explore the site</button>
+      </div>
+    </div>
+    <div class="preview-media">
+      <div class="phone" aria-hidden="true">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="app-top">
+            <div class="hi">Good morning<strong>Marcus</strong></div>
+            <div class="mark-sm">RYZR</div>
+          </div>
+          <div class="app-card">
+            <div class="label">Today's session</div>
+            <div class="title">Lower body · 42 min</div>
+          </div>
+          <div class="app-card">
+            <div class="app-ring">
+              <svg viewBox="0 0 80 80">
+                <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.09)" stroke-width="8"/>
+                <circle cx="40" cy="40" r="34" fill="none" stroke="#FF6B1A" stroke-width="8" stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="19" transform="rotate(-90 40 40)"/>
+                <text x="40" y="46" text-anchor="middle" font-family="'Archivo Black',sans-serif" font-size="24" fill="#fff">91</text>
+              </svg>
+              <div>
+                <div class="score"><em>Form Score 91</em></div>
+                <div class="sub">Great depth — drive through your heels.</div>
+              </div>
+            </div>
+          </div>
+          <div class="app-tip">Push your knees out — track them over your toes.</div>
+          <div class="app-cta">Start workout</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <header class="nav">
   <div class="wrap nav-inner">
@@ -279,8 +404,12 @@
 <main id="top">
 
   <section class="hero">
-    <div class="ember"></div>
     <div class="wrap">
+      <div class="hero-stage reveal" style="background-image:url('assets/athlete-male.png')">
+        <video class="hero-video" autoplay muted loop playsinline poster="assets/athlete-male.png" aria-hidden="true">
+          <source src="assets/ryzr-hero.mp4" type="video/mp4" />
+        </video>
+      </div>
       <div class="hero-copy reveal">
         <p class="kicker">AI-Powered Fitness</p>
         <h1>Workouts built around <em>you.</em></h1>
@@ -293,17 +422,6 @@
           <div class="item"><div class="v">1,300+</div><div class="l">Exercises</div></div>
           <div class="item"><div class="v">Real-time</div><div class="l">Form coaching</div></div>
           <div class="item"><div class="v">Adaptive</div><div class="l">Every session</div></div>
-        </div>
-      </div>
-      <div class="hero-photo reveal">
-        <img src="assets/athlete-male.png" alt="Athlete training with RYZR" width="1176" height="1760" />
-        <div class="grad"></div>
-        <div class="float-card">
-          <div class="score">91</div>
-          <div class="meta">
-            <div class="l">FORM SCORE</div>
-            <div class="d">Great depth — drive through your heels.</div>
-          </div>
         </div>
       </div>
     </div>
@@ -530,6 +648,50 @@
     }
     btn.addEventListener('click', function () { setOpen(!menu.classList.contains('open')); });
     menu.addEventListener('click', function (e) { if (e.target.tagName === 'A') setOpen(false); });
+  })();
+
+  /* App Preview popup: show once per visitor, dismissible, keyboard-accessible */
+  (function () {
+    var overlay = document.getElementById('previewOverlay');
+    if (!overlay) return;
+    var closeBtn = document.getElementById('previewClose');
+    var dismissBtn = document.getElementById('previewDismiss');
+    var STORAGE_KEY = 'ryzr_preview_seen';
+    var lastFocus = null;
+
+    function open() {
+      lastFocus = document.activeElement;
+      overlay.classList.add('open');
+      document.body.classList.add('preview-locked');
+      overlay.setAttribute('aria-hidden', 'false');
+      // next frame so the transition runs
+      requestAnimationFrame(function () { overlay.classList.add('visible'); });
+      if (closeBtn) closeBtn.focus();
+    }
+    function close() {
+      overlay.classList.remove('visible');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('preview-locked');
+      try { localStorage.setItem(STORAGE_KEY, '1'); } catch (e) {}
+      window.setTimeout(function () { overlay.classList.remove('open'); }, 300);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (dismissBtn) dismissBtn.addEventListener('click', close);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) close();
+    });
+
+    // Show once per visitor. Add ?preview=1 to force it (handy for testing).
+    var params = new URLSearchParams(window.location.search);
+    var force = params.get('preview') === '1';
+    var seen = false;
+    try { seen = localStorage.getItem(STORAGE_KEY) === '1'; } catch (e) {}
+    if (force || !seen) {
+      window.setTimeout(open, force ? 0 : 600);
+    }
   })();
 </script>
 
