@@ -107,54 +107,29 @@
   .mobile-menu .btn { margin-top: 14px; justify-content: center; }
 
   .video-hero { position: relative; overflow: hidden; background: var(--ryzr-ink); border-bottom: 1px solid var(--ryzr-line); }
-  .video-hero .stage { position: relative; width: 100%; aspect-ratio: 1920 / 1080; max-height: calc(100vh - 76px); }
+  .video-hero .stage { position: relative; width: 100%; min-height: min(760px, calc(100vh - 76px)); }
   .video-hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .video-hero .veil { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, transparent 0%, transparent 62%, rgba(5,5,5,0.55) 100%); pointer-events: none; }
-  .video-hero .overlay { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding-bottom: 54px; padding-top: 40px; }
-  .video-hero .overlay .wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
-  .video-hero h1 { font-family: var(--ryzr-font-display); font-size: clamp(40px, 7vw, 88px); line-height: 0.92; letter-spacing: -0.03em; margin: 0; max-width: 900px; text-shadow: 0 4px 40px rgba(0,0,0,0.55); }
-  .video-hero h1 em { color: var(--ryzr-orange); font-style: normal; }
-  .video-hero .lede { max-width: 560px; text-shadow: 0 2px 20px rgba(0,0,0,0.6); }
-  .video-hero .cta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-  @media (max-width: 720px) {
-    .video-hero .stage { aspect-ratio: 4 / 5; }
-    .video-hero .overlay { padding-bottom: 40px; }
-  }
-
-  .hero { position: relative; overflow: hidden; }
-  .hero .ember {
-    position: absolute; inset: 0; z-index: 0;
+  .video-hero .veil {
+    position: absolute; inset: 0; z-index: 1;
     background:
-      radial-gradient(50% 45% at 30% 35%, rgba(255,107,26,0.28), transparent 70%),
-      radial-gradient(40% 40% at 90% 10%, rgba(255,80,20,0.16), transparent 70%),
-      var(--ryzr-ink);
+      linear-gradient(90deg, rgba(5,5,5,0.88) 0%, rgba(5,5,5,0.55) 42%, rgba(5,5,5,0.12) 100%),
+      linear-gradient(180deg, rgba(5,5,5,0.16) 0%, transparent 45%, rgba(5,5,5,0.72) 100%);
+    pointer-events: none;
   }
-  .hero .wrap { position: relative; z-index: 2; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 50px; align-items: center; padding-top: 90px; padding-bottom: 90px; }
-  .hero h1 { font-family: var(--ryzr-font-display); font-size: clamp(54px, 8.5vw, 104px); line-height: 0.9; letter-spacing: -0.03em; margin: 0; }
-  .hero h1 em { color: var(--ryzr-orange); font-style: normal; }
-  .hero .lede { margin: 26px 0 34px; max-width: 540px; }
-  .hero .cta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 30px; }
-  .hero .proof { display: flex; gap: 32px; flex-wrap: wrap; }
-  .hero .proof .item .v { font-family: var(--ryzr-font-display); font-size: 30px; color: var(--ryzr-orange); line-height: 1; }
-  .hero .proof .item .l { color: var(--ryzr-mute); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 6px; }
-
-  .hero-photo {
-    position: relative; border-radius: 28px; overflow: hidden;
-    border: 1px solid var(--ryzr-line);
-    box-shadow: var(--ryzr-shadow-card), var(--ryzr-shadow-glow);
-    aspect-ratio: 4 / 5;
+  .video-hero .overlay { position: relative; z-index: 2; min-height: min(760px, calc(100vh - 76px)); display: flex; align-items: flex-end; padding: 92px 0 70px; }
+  .video-hero .overlay .wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 26px; }
+  .video-hero h1 { font-family: var(--ryzr-font-display); font-size: clamp(54px, 8.5vw, 104px); line-height: 0.9; letter-spacing: -0.03em; margin: 0; max-width: 920px; text-shadow: 0 4px 40px rgba(0,0,0,0.55); }
+  .video-hero h1 em { color: var(--ryzr-orange); font-style: normal; }
+  .video-hero .lede { max-width: 620px; margin: 0; color: rgba(255,255,255,0.82); text-shadow: 0 2px 20px rgba(0,0,0,0.6); }
+  .video-hero .cta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .video-hero .proof { display: flex; gap: 32px; flex-wrap: wrap; }
+  .video-hero .proof .item .v { font-family: var(--ryzr-font-display); font-size: 30px; color: var(--ryzr-orange); line-height: 1; }
+  .video-hero .proof .item .l { color: rgba(255,255,255,0.68); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 6px; }
+  @media (max-width: 720px) {
+    .video-hero .stage, .video-hero .overlay { min-height: calc(100svh - 76px); }
+    .video-hero .overlay { padding: 70px 0 44px; }
+    .video-hero .proof { gap: 22px; }
   }
-  .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; }
-  .hero-photo .grad { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(5,5,5,0.85)); }
-  .hero-photo .float-card {
-    position: absolute; left: 22px; bottom: 22px; right: 22px;
-    background: rgba(15,15,15,0.85); backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,107,26,0.4); border-radius: 18px;
-    padding: 16px 20px; display: flex; align-items: center; gap: 16px;
-  }
-  .hero-photo .float-card .score { font-family: var(--ryzr-font-display); font-size: 52px; color: var(--ryzr-orange); line-height: 1; }
-  .hero-photo .float-card .meta .l { font-family: var(--ryzr-font-kicker); letter-spacing: 0.2em; color: var(--ryzr-mute); font-size: 13px; }
-  .hero-photo .float-card .meta .d { font-size: 15px; color: #fff; }
 
   section { padding: clamp(70px, 9vw, 120px) 0; position: relative; }
   .sec-head { max-width: 760px; margin-bottom: 56px; }
@@ -244,15 +219,12 @@
   @media (max-width: 920px) {
     .nav-links { display: none; }
     .menu-btn { display: inline-flex; }
-    .hero .wrap { grid-template-columns: 1fr; gap: 40px; }
-    .hero-photo { max-width: 460px; }
     .around .grid, .coach .grid, .results .grid { grid-template-columns: 1fr; gap: 36px; }
-    .coach .photo, .hero-photo { max-width: 520px; margin: 0 auto; }
+    .coach .photo { max-width: 520px; margin: 0 auto; }
   }
   @media (max-width: 620px) {
     .compare .cols { grid-template-columns: 1fr; }
     .around .cards { grid-template-columns: 1fr; }
-    .hero .proof { gap: 22px; }
     .nav-cta .btn.ghost { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -301,40 +273,17 @@
       <div class="veil"></div>
       <div class="overlay">
         <div class="wrap reveal">
+          <p class="kicker">AI-Powered Fitness</p>
+          <h1>Workouts built around <em>you.</em></h1>
+          <p class="lede">Adaptive AI plans, real-time form coaching, and 1,300+ exercises — programmed around your goals, your gear, and even your injuries. Train smarter. Get stronger. Live better.</p>
           <div class="cta-row">
             <a class="btn" href="#final">Start free — no card</a>
             <a class="btn ghost" href="#coach">See how it works</a>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="hero">
-    <div class="ember"></div>
-    <div class="wrap">
-      <div class="hero-copy reveal">
-        <p class="kicker">AI-Powered Fitness</p>
-        <h1>Workouts built around <em>you.</em></h1>
-        <p class="lede">Adaptive AI plans, real-time form coaching, and 1,300+ exercises — programmed around your goals, your gear, and even your injuries. Train smarter. Get stronger. Live better.</p>
-        <div class="cta-row">
-          <a class="btn" href="#final">Start free — no card</a>
-          <a class="btn ghost" href="#coach">See how it works</a>
-        </div>
-        <div class="proof">
-          <div class="item"><div class="v">1,300+</div><div class="l">Exercises</div></div>
-          <div class="item"><div class="v">Real-time</div><div class="l">Form coaching</div></div>
-          <div class="item"><div class="v">Adaptive</div><div class="l">Every session</div></div>
-        </div>
-      </div>
-      <div class="hero-photo reveal">
-        <img src="assets/athlete-male.png" alt="Athlete training with RYZR" width="1176" height="1760" />
-        <div class="grad"></div>
-        <div class="float-card">
-          <div class="score">91</div>
-          <div class="meta">
-            <div class="l">FORM SCORE</div>
-            <div class="d">Great depth — drive through your heels.</div>
+          <div class="proof">
+            <div class="item"><div class="v">1,300+</div><div class="l">Exercises</div></div>
+            <div class="item"><div class="v">Real-time</div><div class="l">Form coaching</div></div>
+            <div class="item"><div class="v">Adaptive</div><div class="l">Every session</div></div>
           </div>
         </div>
       </div>
