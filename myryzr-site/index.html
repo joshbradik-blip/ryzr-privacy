@@ -106,29 +106,11 @@
   .mobile-menu a:last-child { border-bottom: 0; }
   .mobile-menu .btn { margin-top: 14px; justify-content: center; }
 
-  .video-hero { position: relative; overflow: hidden; background: var(--ryzr-ink); border-bottom: 1px solid var(--ryzr-line); }
+  .video-hero { position: relative; overflow: hidden; background: var(--ryzr-ink); border-bottom: 1px solid var(--ryzr-line); padding: 0; }
   .video-hero .stage { position: relative; width: 100%; min-height: min(760px, calc(100vh - 76px)); }
   .video-hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .video-hero .veil {
-    position: absolute; inset: 0; z-index: 1;
-    background:
-      linear-gradient(90deg, rgba(5,5,5,0.88) 0%, rgba(5,5,5,0.55) 42%, rgba(5,5,5,0.12) 100%),
-      linear-gradient(180deg, rgba(5,5,5,0.16) 0%, transparent 45%, rgba(5,5,5,0.72) 100%);
-    pointer-events: none;
-  }
-  .video-hero .overlay { position: relative; z-index: 2; min-height: min(760px, calc(100vh - 76px)); display: flex; align-items: flex-end; padding: 92px 0 70px; }
-  .video-hero .overlay .wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 26px; }
-  .video-hero h1 { font-family: var(--ryzr-font-display); font-size: clamp(54px, 8.5vw, 104px); line-height: 0.9; letter-spacing: -0.03em; margin: 0; max-width: 920px; text-shadow: 0 4px 40px rgba(0,0,0,0.55); }
-  .video-hero h1 em { color: var(--ryzr-orange); font-style: normal; }
-  .video-hero .lede { max-width: 620px; margin: 0; color: rgba(255,255,255,0.82); text-shadow: 0 2px 20px rgba(0,0,0,0.6); }
-  .video-hero .cta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-  .video-hero .proof { display: flex; gap: 32px; flex-wrap: wrap; }
-  .video-hero .proof .item .v { font-family: var(--ryzr-font-display); font-size: 30px; color: var(--ryzr-orange); line-height: 1; }
-  .video-hero .proof .item .l { color: rgba(255,255,255,0.68); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 6px; }
   @media (max-width: 720px) {
-    .video-hero .stage, .video-hero .overlay { min-height: calc(100svh - 76px); }
-    .video-hero .overlay { padding: 70px 0 44px; }
-    .video-hero .proof { gap: 22px; }
+    .video-hero .stage { min-height: calc(100svh - 76px); }
   }
 
   section { padding: clamp(70px, 9vw, 120px) 0; position: relative; }
@@ -270,23 +252,6 @@
       <video autoplay muted loop playsinline poster="assets/athlete-male.png">
         <source src="assets/ryzr-hero.mp4" type="video/mp4" />
       </video>
-      <div class="veil"></div>
-      <div class="overlay">
-        <div class="wrap reveal">
-          <p class="kicker">AI-Powered Fitness</p>
-          <h1>Workouts built around <em>you.</em></h1>
-          <p class="lede">Adaptive AI plans, real-time form coaching, and 1,300+ exercises — programmed around your goals, your gear, and even your injuries. Train smarter. Get stronger. Live better.</p>
-          <div class="cta-row">
-            <a class="btn" href="#final">Start free — no card</a>
-            <a class="btn ghost" href="#coach">See how it works</a>
-          </div>
-          <div class="proof">
-            <div class="item"><div class="v">1,300+</div><div class="l">Exercises</div></div>
-            <div class="item"><div class="v">Real-time</div><div class="l">Form coaching</div></div>
-            <div class="item"><div class="v">Adaptive</div><div class="l">Every session</div></div>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
