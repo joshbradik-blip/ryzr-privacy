@@ -17,21 +17,23 @@
 <link rel="stylesheet" href="ryzr-tokens.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
   body {
     margin: 0;
     background: var(--ryzr-ink);
     color: #fff;
     font-family: var(--ryzr-font-body);
-    font-size: 18px;
+    font-size: 17px;
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
     overflow-x: hidden;
   }
   a { color: inherit; text-decoration: none; }
-  img { display: block; max-width: 100%; }
+  img, svg, video { display: block; max-width: 100%; }
+  h1, h2, h3, blockquote, p { overflow-wrap: break-word; }
 
-  .wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+  .wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 clamp(18px, 5vw, 28px); }
 
   .kicker {
     font-family: var(--ryzr-font-kicker);
@@ -109,13 +111,20 @@
   .video-hero { position: relative; overflow: hidden; background: var(--ryzr-ink); border-bottom: 1px solid var(--ryzr-line); padding: 0; }
   .video-hero .stage { position: relative; width: 100%; min-height: min(760px, calc(100vh - 76px)); }
   .video-hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  @media (max-width: 720px) {
-    .video-hero .stage { min-height: calc(100svh - 76px); }
+  /* Below ~900px the 16:9 frame is narrower than the stage, so `cover` crops the
+     left and right of the video away. Show the whole frame instead. */
+  @media (max-width: 900px) {
+    .video-hero .stage {
+      min-height: 0;
+      aspect-ratio: 16 / 9;
+      max-height: calc(100svh - 76px);
+    }
+    .video-hero video { object-fit: contain; }
   }
 
   section { padding: clamp(70px, 9vw, 120px) 0; position: relative; }
   .sec-head { max-width: 760px; margin-bottom: 56px; }
-  .sec-head h2 { font-family: var(--ryzr-font-display); font-size: clamp(38px, 5.5vw, 68px); line-height: 0.95; letter-spacing: -0.025em; margin: 0; }
+  .sec-head h2 { font-family: var(--ryzr-font-display); font-size: clamp(33px, 5.5vw, 68px); line-height: 0.95; letter-spacing: -0.025em; margin: 0; }
   .sec-head h2 em { color: var(--ryzr-orange); font-style: normal; }
   .sec-head p { color: var(--ryzr-mute); font-size: clamp(17px, 2vw, 21px); margin: 20px 0 0; }
 
@@ -144,13 +153,14 @@
   .tip .dot { font-weight: 800; }
 
   .library { background: #080808; border-top: 1px solid var(--ryzr-line); overflow: hidden; position: relative; }
-  .library .big-num { font-family: var(--ryzr-font-display); font-size: clamp(110px, 20vw, 280px); line-height: 0.82; color: var(--ryzr-orange); letter-spacing: -0.05em; text-shadow: 0 10px 80px rgba(255,107,26,0.3); }
+  .library .big-num { font-family: var(--ryzr-font-display); font-size: clamp(66px, 17vw, 280px); line-height: 0.82; color: var(--ryzr-orange); letter-spacing: -0.05em; text-shadow: 0 10px 80px rgba(255,107,26,0.3); }
   .library .big-num .plus { font-size: 0.6em; vertical-align: top; }
   .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; max-width: 900px; }
   .chip { padding: 11px 18px; border-radius: 999px; border: 1px solid var(--ryzr-line); color: rgba(255,255,255,0.7); font-size: 15px; background: rgba(255,255,255,0.02); }
   .chip.hot { border-color: var(--ryzr-orange); color: var(--ryzr-orange); background: rgba(255,107,26,0.08); }
 
   .results .grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center; }
+  .results .proof { display: flex; flex-wrap: wrap; gap: 34px; margin-top: 30px; }
   .chartcard { background: linear-gradient(180deg, #111, #0a0a0a); border: 1px solid var(--ryzr-line); border-radius: var(--ryzr-radius-card); padding: 30px; box-shadow: var(--ryzr-shadow-card); }
   .chartcard h4 { font-family: var(--ryzr-font-kicker); letter-spacing: 0.18em; color: var(--ryzr-mute); font-size: 16px; font-weight: 400; margin: 0; }
   .chartcard .num { font-family: var(--ryzr-font-display); font-size: 52px; line-height: 1; margin: 6px 0 0; }
@@ -172,7 +182,7 @@
 
   .testi { text-align: center; }
   .testi .stars { color: var(--ryzr-orange); font-size: 26px; letter-spacing: 5px; margin-bottom: 26px; }
-  .testi blockquote { font-family: var(--ryzr-font-display); font-size: clamp(32px, 5vw, 60px); line-height: 1.02; letter-spacing: -0.02em; margin: 0 auto; max-width: 960px; }
+  .testi blockquote { font-family: var(--ryzr-font-display); font-size: clamp(28px, 5vw, 60px); line-height: 1.02; letter-spacing: -0.02em; margin: 0 auto; max-width: 960px; }
   .testi blockquote em { color: var(--ryzr-orange); font-style: normal; }
   .testi .who { display: inline-flex; align-items: center; gap: 14px; margin-top: 34px; }
   .testi .who .avatar { width: 56px; height: 56px; border-radius: 999px; background: var(--ryzr-card); border: 2px solid var(--ryzr-orange); overflow: hidden; }
@@ -183,10 +193,30 @@
   .final { position: relative; overflow: hidden; text-align: center; border-top: 1px solid var(--ryzr-line); }
   .final .ember { position: absolute; inset: 0; z-index: 0; background: radial-gradient(55% 70% at 50% 75%, rgba(255,107,26,0.25), transparent 70%), var(--ryzr-ink); }
   .final .wrap { position: relative; z-index: 2; }
-  .final h2 { font-family: var(--ryzr-font-display); font-size: clamp(44px, 7vw, 92px); line-height: 0.92; letter-spacing: -0.03em; margin: 0 auto; max-width: 900px; }
+  .final h2 { font-family: var(--ryzr-font-display); font-size: clamp(38px, 7vw, 92px); line-height: 0.92; letter-spacing: -0.03em; margin: 0 auto; max-width: 900px; }
   .final h2 em { color: var(--ryzr-orange); font-style: normal; }
-  .final p { color: var(--ryzr-mute); font-size: clamp(18px, 2.2vw, 22px); margin: 24px auto 38px; max-width: 560px; }
+  /* Keep each phrase whole so lines never break mid-sentence. */
+  .final h2 span, .final h2 em { display: inline-block; }
+  .final p { color: var(--ryzr-mute); font-size: clamp(18px, 2.2vw, 22px); margin: 24px auto 34px; max-width: 560px; }
   .final .badges { justify-content: center; }
+
+  /* Promotional banner — informational, not interactive. */
+  .promo-banner {
+    display: flex; align-items: center; justify-content: center; gap: 13px;
+    width: fit-content; max-width: 100%;
+    margin: 0 auto 34px;
+    padding: 15px 26px;
+    border-radius: 14px;
+    background: linear-gradient(90deg, rgba(255,107,26,0.03), rgba(255,107,26,0.15) 50%, rgba(255,107,26,0.03));
+    border: 1px solid rgba(255,107,26,0.28);
+    color: var(--ryzr-orange);
+    font-family: var(--ryzr-font-kicker);
+    font-size: clamp(19px, 2.6vw, 25px);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .promo-banner svg { width: 19px; height: 19px; flex-shrink: 0; stroke: currentColor; }
 
   footer.site { border-top: 1px solid var(--ryzr-line); padding: 56px 0 40px; }
   footer.site .grid { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; align-items: flex-start; }
@@ -203,11 +233,31 @@
     .menu-btn { display: inline-flex; }
     .around .grid, .coach .grid, .results .grid { grid-template-columns: 1fr; gap: 36px; }
     .coach .photo { max-width: 520px; margin: 0 auto; }
+    footer.site .col-links { gap: 40px; }
   }
   @media (max-width: 620px) {
+    section { padding: 60px 0; }
     .compare .cols { grid-template-columns: 1fr; }
     .around .cards { grid-template-columns: 1fr; }
     .nav-cta .btn.ghost { display: none; }
+    .nav-inner { height: 66px; }
+    .mark { font-size: 20px; }
+    .sec-head { margin-bottom: 40px; }
+    .col { padding: 26px 22px; }
+    .chartcard { padding: 22px 20px; }
+    .chartcard .num { font-size: 42px; }
+    .feature-card { padding: 22px; }
+    .results .proof { gap: 22px 26px; }
+    .badges { gap: 10px; }
+    .badge { flex: 1 1 auto; min-width: 0; }
+    .testi .who { gap: 12px; }
+    footer.site { padding: 44px 0 32px; }
+    footer.site .col-links { gap: 28px 34px; }
+    /* Roomier tap targets for the footer link lists. */
+    footer.site .col-links a { padding: 7px 0; margin-bottom: 3px; }
+  }
+  @media (max-width: 380px) {
+    .badge { flex-basis: 100%; }
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -260,7 +310,7 @@
       <div class="grid">
         <div class="reveal">
           <p class="kicker">Built for every body</p>
-          <h2 class="display" style="font-size:clamp(38px,5.5vw,64px)">Trains around your <em>injuries</em> &amp; disabilities.</h2>
+          <h2 class="display" style="font-size:clamp(32px,5.5vw,64px)">Trains around your <em>injuries</em> &amp; disabilities.</h2>
           <p class="lede" style="margin-top:22px; max-width:520px;">Most apps hand you the same plan as everyone else. RYZR asks what's going on with your body — a bad shoulder, a knee rebuild, limited mobility — and programs around it. Every exercise has a compatible swap, one tap away.</p>
           <a class="btn" href="#final" style="margin-top:30px;">Build my plan</a>
         </div>
@@ -299,7 +349,7 @@
         </div>
         <div class="reveal">
           <p class="kicker">AI Form Coach</p>
-          <h2 class="display" style="font-size:clamp(38px,5.5vw,64px)">Your coach. <em>In your camera.</em></h2>
+          <h2 class="display" style="font-size:clamp(32px,5.5vw,64px)">Your coach. <em>In your camera.</em></h2>
           <p class="lede" style="margin-top:20px; max-width:480px;">Point your phone and get a Form Score on every set. Knees, hips, depth, tempo — coached the moment it happens. The kind of cueing you'd pay a trainer for, on every rep.</p>
           <div class="tips">
             <div class="tip good"><span class="dot" style="color:var(--ryzr-orange)">&#10003;</span><span><strong>Form Score 91</strong> — great depth and bar path.</span></div>
@@ -315,7 +365,7 @@
     <div class="wrap reveal">
       <p class="kicker">The library that teaches</p>
       <div class="big-num">1,300<span class="plus">+</span></div>
-      <h2 class="display" style="font-size:clamp(34px,5vw,60px); margin-top:8px;">exercises. <em>One plan.</em> Yours.</h2>
+      <h2 class="display" style="font-size:clamp(30px,5vw,60px); margin-top:8px;">exercises. <em>One plan.</em> Yours.</h2>
       <p class="lede" style="margin-top:18px; max-width:640px;">Setup, execution, and common mistakes for every move — so you train with confidence. Lift, run, mobilize, sculpt: it's all programmed into one adaptive plan.</p>
       <div class="chips">
         <span class="chip">Back Squat</span><span class="chip hot">Deadlift</span><span class="chip">Bench Press</span>
@@ -334,9 +384,9 @@
       <div class="grid">
         <div class="reveal">
           <p class="kicker">Real results</p>
-          <h2 class="display" style="font-size:clamp(38px,5.5vw,64px)"><em>+12.5 kg</em><br>in 8 weeks.</h2>
+          <h2 class="display" style="font-size:clamp(32px,5.5vw,64px)"><em>+12.5 kg</em><br>in 8 weeks.</h2>
           <p class="lede" style="margin-top:20px; max-width:440px;">Every set logged, every PR tracked. A plan that learns from your numbers and pushes the next rep — automatically.</p>
-          <div class="proof" style="display:flex; gap:34px; margin-top:30px;">
+          <div class="proof">
             <div class="item"><div class="v" style="font-family:var(--ryzr-font-display); font-size:34px; color:var(--ryzr-orange); line-height:1;">48</div><div class="l" style="color:var(--ryzr-mute); font-size:13px; letter-spacing:0.1em; text-transform:uppercase; margin-top:6px;">Sessions</div></div>
             <div class="item"><div class="v" style="font-family:var(--ryzr-font-display); font-size:34px; color:var(--ryzr-orange); line-height:1;">12d</div><div class="l" style="color:var(--ryzr-mute); font-size:13px; letter-spacing:0.1em; text-transform:uppercase; margin-top:6px;">Streak</div></div>
             <div class="item"><div class="v" style="font-family:var(--ryzr-font-display); font-size:34px; color:var(--ryzr-orange); line-height:1;">4</div><div class="l" style="color:var(--ryzr-mute); font-size:13px; letter-spacing:0.1em; text-transform:uppercase; margin-top:6px;">New PRs</div></div>
@@ -414,10 +464,11 @@
   <section class="final" id="final">
     <div class="ember"></div>
     <div class="wrap reveal">
-      <h2>Train smarter.<br>Get stronger. <em>Live better.</em></h2>
+      <h2>Train smarter.<br><span>Get stronger.</span> <em>Live better.</em></h2>
       <p>Your first session is free — no credit card, no commitment. Just coaching.</p>
-      <div class="cta-row" style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:30px;">
-        <a class="btn" href="#store-options" style="padding:18px 36px; font-size:19px;">Start free</a>
+      <div class="promo-banner">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 20h16"/></svg>
+        <span>Free to Download</span>
       </div>
       <div class="badges" id="store-options">
         <a class="badge" href="https://apps.apple.com/us/app/ryzr/id6767086947?ppid=252d929e-1832-4976-9231-0d6f142d5e7c"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.04c-.02-2.05 1.68-3.03 1.75-3.08-0.95-1.4-2.44-1.59-2.97-1.61-1.26-.13-2.47.74-3.11.74-.64 0-1.63-.72-2.69-.7-1.38.02-2.66.8-3.37 2.04-1.44 2.49-.37 6.17 1.03 8.19.68.99 1.49 2.1 2.55 2.06 1.03-.04 1.42-.66 2.66-.66 1.24 0 1.59.66 2.68.64 1.11-.02 1.81-1 2.49-1.99.78-1.14 1.1-2.25 1.12-2.31-.02-.01-2.15-.82-2.17-3.25zM15.1 6.13c.56-.68.94-1.63.84-2.58-.81.03-1.79.54-2.37 1.22-.52.6-.98 1.56-.86 2.48.9.07 1.83-.46 2.39-1.12z"/></svg><div><div class="top">Download on the</div><div class="big">App Store</div></div></a>
