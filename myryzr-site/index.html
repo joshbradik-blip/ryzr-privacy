@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>RYZR — Your AI fitness coach in your pocket</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="description" content="AI-generated training plans, a camera-based Form Coach, and nutrition tracking that just takes a photo. Download RYZR free on iOS and Android." />
+<meta name="theme-color" content="#050505" />
+<meta property="og:title" content="RYZR — Your AI fitness coach in your pocket" />
+<meta property="og:description" content="AI-generated training plans, a camera-based Form Coach, and nutrition tracking that just takes a photo." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/athlete-male.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ryzr-tokens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body {
+    margin: 0;
+    background: var(--ryzr-ink);
+    color: #fff;
+    font-family: var(--ryzr-font-body);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img, svg, video { display: block; max-width: 100%; }
+  h1, h2, h3, p { overflow-wrap: break-word; }
+
+  .wrap { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 clamp(18px, 5vw, 28px); }
+  .wrap.narrow { max-width: 760px; }
+  .wrap.video { max-width: 940px; }
+
+  .display { font-family: var(--ryzr-font-display); line-height: 0.95; letter-spacing: -0.025em; margin: 0; }
+  .display em { color: var(--ryzr-orange); font-style: normal; }
+  .kicker {
+    font-family: var(--ryzr-font-kicker);
+    letter-spacing: 0.22em;
+    color: var(--ryzr-orange);
+    font-size: 20px;
+    text-transform: uppercase;
+    margin: 0 0 14px;
+  }
+  .body-copy { color: var(--ryzr-text-2); font-size: 17px; line-height: 1.6; margin: 0; }
+
+  /* ---------- Top bar: logo + store links ---------- */
+  .topbar {
+    display: flex; flex-direction: column; align-items: center; gap: 22px;
+    padding: 28px 24px 24px;
+    border-bottom: 1px solid var(--ryzr-line);
+  }
+  .mark { display: inline-flex; align-items: center; gap: 11px; }
+  .mark .glyph {
+    width: 36px; height: 36px; border-radius: 9px;
+    background: #000; border: 1px solid var(--ryzr-line);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--ryzr-font-display); font-size: 18px; line-height: 1;
+  }
+  .mark .word { font-family: var(--ryzr-font-display); font-size: 22px; letter-spacing: 0.08em; }
+
+  .store-links { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+  .store-btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 12px 22px;
+    border-radius: var(--ryzr-radius-pill);
+    background: var(--ryzr-surface);
+    border: 1px solid var(--ryzr-line);
+    color: #fff; font-weight: 700; font-size: 15px;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .store-btn:hover { border-color: rgba(255,255,255,0.26); transform: translateY(-2px); }
+  .store-btn svg { width: 20px; height: 20px; flex-shrink: 0; fill: currentColor; }
+  .store-btn.primary {
+    background: var(--ryzr-gradient);
+    border-color: transparent;
+    color: var(--ryzr-on-orange);
+    font-weight: 800;
+  }
+  .store-btn.primary:hover { box-shadow: var(--ryzr-shadow-glow); }
+  .store-btn.sm { padding: 9px 16px; font-size: 13px; gap: 7px; }
+  .store-btn.sm svg { width: 16px; height: 16px; }
+
+  /* ---------- Feature bullets ---------- */
+  .bullets { max-width: 660px; margin: 0 auto; padding: 34px 24px 6px; }
+  .bullets ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 15px; }
+  .bullets li { display: flex; gap: 12px; align-items: flex-start; font-size: 16px; line-height: 1.45; }
+  .bullets svg { width: 22px; height: 22px; flex-shrink: 0; margin-top: 1px; fill: var(--ryzr-orange); }
+
+  /* ---------- Hero ---------- */
+  .hero { text-align: center; padding: 54px 0 38px; }
+  .hero h1 { font-size: clamp(36px, 6.4vw, 58px); }
+  .hero p { color: var(--ryzr-text-2); font-size: clamp(17px, 2.1vw, 19px); line-height: 1.5; max-width: 540px; margin: 18px auto 0; }
+
+  /* ---------- Product demo video ---------- */
+  .demo { padding: 0 0 64px; }
+  .demo .frame {
+    position: relative; aspect-ratio: 16 / 9;
+    border-radius: var(--ryzr-radius-card);
+    background: var(--ryzr-surface);
+    border: 1px solid var(--ryzr-line);
+    box-shadow: var(--ryzr-shadow-card);
+    overflow: hidden;
+  }
+  .demo video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+  /* ---------- Alternating feature sections ---------- */
+  section { padding: clamp(56px, 8vw, 78px) 0; }
+  .band { background: var(--ryzr-surface); border-top: 1px solid var(--ryzr-line); border-bottom: 1px solid var(--ryzr-line); }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 56px); align-items: center; }
+  .split h2 { font-size: clamp(28px, 4.2vw, 42px); margin-bottom: 16px; }
+  .split .body-copy { margin-bottom: 0; }
+
+  .btn-gradient {
+    display: inline-flex; align-items: center; gap: 9px;
+    margin-top: 26px;
+    padding: 14px 28px;
+    border-radius: var(--ryzr-radius-pill);
+    background: var(--ryzr-gradient);
+    color: var(--ryzr-on-orange);
+    font-weight: 800; font-size: 15px;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-gradient:hover { transform: translateY(-2px); box-shadow: var(--ryzr-shadow-glow); }
+  .btn-gradient svg { width: 18px; height: 18px; fill: currentColor; }
+
+  /* ---------- App mockup cards ---------- */
+  .mock { border: 1px solid var(--ryzr-line); border-radius: var(--ryzr-radius-card); padding: 24px; }
+  .mock.on-band { background: var(--ryzr-ink); }
+  .mock.on-ink { background: var(--ryzr-surface); }
+  .mock-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .mock-label { font-size: 12px; font-weight: 800; letter-spacing: 0.06em; color: var(--ryzr-mute); text-transform: uppercase; }
+  .mock-note { font-size: 12px; color: var(--ryzr-mute); }
+
+  .ring-row { display: flex; justify-content: center; margin-bottom: 20px; }
+  .ring {
+    width: 150px; height: 150px; border-radius: 999px;
+    background: conic-gradient(var(--ryzr-orange) 0deg 56deg, var(--ryzr-surface-3) 56deg 360deg);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ring .core {
+    width: 118px; height: 118px; border-radius: 999px;
+    background: var(--ryzr-ink);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .ring .kcal { font-family: var(--ryzr-font-display); font-size: 30px; line-height: 1; }
+  .ring .of { font-size: 11px; color: var(--ryzr-mute); margin-top: 4px; }
+
+  .snap-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px; border-radius: 14px;
+    background: var(--ryzr-surface); border: 1px solid var(--ryzr-orange);
+  }
+  .mock.on-ink .snap-row { background: var(--ryzr-ink); }
+  .snap-row .ico {
+    width: 38px; height: 38px; border-radius: 999px; flex-shrink: 0;
+    background: rgba(255,107,26,0.15);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .snap-row .ico svg { width: 18px; height: 18px; fill: var(--ryzr-orange); }
+  .snap-row .t { font-size: 14px; font-weight: 700; }
+  .snap-row .d { font-size: 12px; color: var(--ryzr-mute); }
+
+  .wk-title { font-family: var(--ryzr-font-display); font-size: 21px; margin: 0 0 16px; letter-spacing: -0.01em; }
+  .wk-list { list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+  .wk-list li { display: flex; align-items: center; gap: 11px; font-size: 14px; }
+  .wk-list .n {
+    width: 24px; height: 24px; border-radius: 999px; flex-shrink: 0;
+    background: rgba(255,107,26,0.2); color: var(--ryzr-orange);
+    font-size: 12px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .wk-cta {
+    padding: 14px; border-radius: var(--ryzr-radius-pill);
+    background: var(--ryzr-gradient); color: var(--ryzr-on-orange);
+    font-weight: 800; font-size: 14px; text-align: center;
+  }
+
+  /* ---------- Pricing ---------- */
+  .sec-head { text-align: center; margin-bottom: 40px; }
+  .sec-head h2 { font-size: clamp(28px, 4.2vw, 42px); }
+  .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+  .price {
+    background: var(--ryzr-ink); border: 1px solid var(--ryzr-line);
+    border-radius: var(--ryzr-radius-card); padding: 28px; position: relative;
+  }
+  .price.featured { border-color: var(--ryzr-orange); }
+  .price .tag { font-size: 14px; font-weight: 800; color: var(--ryzr-mute); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+  .price.featured .tag { color: var(--ryzr-orange); }
+  .price .amount { font-family: var(--ryzr-font-display); font-size: 34px; line-height: 1; margin-bottom: 18px; }
+  .price .amount span { font-family: var(--ryzr-font-body); font-size: 14px; color: var(--ryzr-mute); font-weight: 600; }
+  .price ul { list-style: none; margin: 0; padding: 0; color: var(--ryzr-text-2); font-size: 14px; line-height: 1.9; }
+  .price .alt { color: var(--ryzr-text-2); font-size: 14px; margin: 0 0 10px; }
+  .pop {
+    position: absolute; top: -12px; right: 20px;
+    background: var(--ryzr-orange); color: var(--ryzr-on-orange);
+    font-size: 11px; font-weight: 800; letter-spacing: 0.04em;
+    padding: 5px 12px; border-radius: var(--ryzr-radius-pill);
+  }
+
+  /* ---------- Reviews ---------- */
+  .rating { text-align: center; margin-bottom: 32px; }
+  .rating .score { font-family: var(--ryzr-font-display); font-size: 52px; line-height: 1; }
+  .rating .stars { color: var(--ryzr-orange); font-size: 19px; letter-spacing: 3px; margin: 8px 0 6px; }
+  .rating .meta { color: var(--ryzr-mute); font-size: 14px; }
+  .reviews { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .review { background: var(--ryzr-surface); border: 1px solid var(--ryzr-line); border-radius: var(--ryzr-radius-card); padding: 24px; }
+  .review .t { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .review .s { color: var(--ryzr-orange); font-size: 13px; letter-spacing: 2px; margin-bottom: 10px; }
+  .review .q { color: var(--ryzr-text-2); font-size: 14px; line-height: 1.6; margin: 0; }
+  .review .who { color: var(--ryzr-mute); font-size: 12px; margin-top: 12px; }
+
+  /* ---------- Footer ---------- */
+  footer.site { border-top: 1px solid var(--ryzr-line); padding: 44px 0 36px; }
+  footer.site .row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 22px; }
+  footer.site .mark .glyph { width: 28px; height: 28px; border-radius: 7px; font-size: 14px; }
+  footer.site .mark .word { font-size: 17px; }
+  footer.site .legal {
+    margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--ryzr-line);
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    color: var(--ryzr-mute); font-size: 13px;
+  }
+  footer.site .legal a { color: var(--ryzr-mute); transition: color .15s ease; }
+  footer.site .legal a:hover { color: var(--ryzr-orange); }
+  footer.site .legal .links { display: flex; gap: 20px; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    .split { grid-template-columns: 1fr; }
+    /* Copy first, mockup second, whichever order the desktop grid uses. */
+    .split .copy { order: 1; }
+    .split .mock { order: 2; }
+    .price-grid { grid-template-columns: 1fr; }
+    .reviews { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 620px) {
+    section { padding: 48px 0; }
+    .demo { padding-bottom: 48px; }
+    .hero { padding: 40px 0 30px; }
+    /* The headline's hand-placed break only helps once the line fits; on phones
+       let it wrap on its own. */
+    .hero h1 br { display: none; }
+    .hero h1 { text-wrap: balance; }
+    .store-links { width: 100%; flex-direction: column; }
+    .store-btn { justify-content: center; }
+    .price { padding: 24px 22px; }
+    .review { padding: 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top bar: logo + store links -->
+<div class="topbar">
+  <a class="mark" href="#top">
+    <span class="glyph">R</span>
+    <span class="word">RYZR</span>
+  </a>
+  <div class="store-links">
+    <a class="store-btn" href="https://apps.apple.com/us/app/ryzr-personal-trainer/id6767086947?ppid=252d929e-1832-4976-9231-0d6f142d5e7c">
+      <svg viewBox="0 0 24 24"><path d="M17.05 12.04c-.02-2.05 1.68-3.03 1.75-3.08-.95-1.4-2.44-1.59-2.97-1.61-1.26-.13-2.47.74-3.11.74-.64 0-1.63-.72-2.69-.7-1.38.02-2.66.8-3.37 2.04-1.44 2.49-.37 6.17 1.03 8.19.68.99 1.49 2.1 2.55 2.06 1.03-.04 1.42-.66 2.66-.66 1.24 0 1.59.66 2.68.64 1.11-.02 1.81-1 2.49-1.99.78-1.14 1.1-2.25 1.12-2.31-.02-.01-2.15-.82-2.17-3.25zM15.1 6.13c.56-.68.94-1.63.84-2.58-.81.03-1.79.54-2.37 1.22-.52.6-.98 1.56-.86 2.48.9.07 1.83-.46 2.39-1.12z"/></svg>
+      Download on the App Store
+    </a>
+    <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.ryzr.app&amp;pcampaignid=web_share">
+      <svg viewBox="0 0 24 24"><path d="M3.6 2.4c-.2.3-.3.7-.3 1.2v16.8c0 .5.1.9.3 1.2l9.1-9.6L3.6 2.4zm10.1 8.4l2.6-2.7-9-5.1c-.4-.2-.8-.2-1.1-.1l7.5 7.9zm0 1.4l-7.5 7.9c.3.1.7.1 1.1-.1l9-5.1-2.6-2.7zm5-2.6l-2.1 1.2 2.4 2.5c.6-.4 1-1 1-1.7s-.4-1.3-1.3-2z"/></svg>
+      Get it on Google Play
+    </a>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- Feature bullets -->
+  <div class="bullets">
+    <ul>
+      <li>
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6-4-4 1.6-1.6 2.4 2.4 5.2-5.2 1.6 1.6-6.8 6.8z"/></svg>
+        <span>Custom workout plans built around your goals</span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6-4-4 1.6-1.6 2.4 2.4 5.2-5.2 1.6 1.6-6.8 6.8z"/></svg>
+        <span>Nutrition tracking — snap a photo or describe a meal, get an instant calorie and macro estimate</span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6-4-4 1.6-1.6 2.4 2.4 5.2-5.2 1.6 1.6-6.8 6.8z"/></svg>
+        <span>Point your camera at any gym equipment and your AI coach explains how to use it</span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6-4-4 1.6-1.6 2.4 2.4 5.2-5.2 1.6 1.6-6.8 6.8z"/></svg>
+        <span>Connect a wearable like Apple Watch — your coach adjusts training around your sleep and recovery</span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6-4-4 1.6-1.6 2.4 2.4 5.2-5.2 1.6 1.6-6.8 6.8z"/></svg>
+        <span>In-app video walkthroughs for every exercise</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="wrap narrow">
+      <h1 class="display">Your AI fitness coach <br>in your pocket</h1>
+      <p>AI-generated training plans, a camera-based Form Coach, and nutrition tracking that just takes a photo.</p>
+    </div>
+  </div>
+
+  <!-- Product demo video -->
+  <div class="demo">
+    <div class="wrap video">
+      <div class="frame">
+        <video autoplay muted loop playsinline poster="assets/athlete-male.png">
+          <source src="assets/ryzr-hero.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nutrition tracker highlight -->
+  <section class="band">
+    <div class="wrap split">
+      <div class="copy">
+        <p class="kicker">New — Nutrition Tracker</p>
+        <h2 class="display">Just show it what you're eating</h2>
+        <p class="body-copy">Snap a photo of your plate, or type what you ate in plain English. RYZR estimates the calories and macros in seconds, so tracking never slows you down.</p>
+        <a class="btn-gradient" href="nutrition.html">
+          See how it works
+          <svg viewBox="0 0 24 24"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.7-1.7 4.5-4.5H3.4v-2.4h12.6l-4.5-4.5 1.7-1.7z"/></svg>
+        </a>
+      </div>
+      <div class="mock on-band">
+        <div class="mock-head">
+          <span class="mock-label">Today</span>
+          <span class="mock-note">2,586 kcal left</span>
+        </div>
+        <div class="ring-row">
+          <div class="ring">
+            <div class="core">
+              <span class="kcal">480</span>
+              <span class="of">of 3066 kcal</span>
+            </div>
+          </div>
+        </div>
+        <div class="snap-row">
+          <div class="ico">
+            <svg viewBox="0 0 24 24"><path d="M9 3 7.2 5H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.2L15 3H9zm3 5.5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6z"/></svg>
+          </div>
+          <div>
+            <div class="t">Snap or describe a meal</div>
+            <div class="d">AI estimates the calories &amp; macros</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI training plans -->
+  <section>
+    <div class="wrap split">
+      <div class="copy">
+        <p class="kicker">AI Training Plans</p>
+        <h2 class="display">A new plan, every day</h2>
+        <p class="body-copy">Tell RYZR your goals, your equipment, and your schedule. Your coach builds the workout, adjusts it as you go, and regenerates it any time your day changes.</p>
+      </div>
+      <div class="mock on-ink">
+        <div class="mock-label" style="margin-bottom:6px;">Today's Workout</div>
+        <div class="wk-title">Week 1 — Full Body A</div>
+        <ul class="wk-list">
+          <li><span class="n">1</span><span>Goblet Squat — 3×10</span></li>
+          <li><span class="n">2</span><span>Barbell Bench Press — 3×10</span></li>
+          <li><span class="n">3</span><span>Face Pull — 2×15</span></li>
+        </ul>
+        <div class="wk-cta">Start Workout ⚡</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="kicker">Pricing</p>
+        <h2 class="display">Start free. Upgrade when you're ready.</h2>
+      </div>
+      <div class="price-grid">
+        <div class="price">
+          <div class="tag">Free</div>
+          <div class="amount">$0</div>
+          <ul>
+            <li>Manual logging</li>
+            <li>Exercise library</li>
+            <li>Basic stats</li>
+          </ul>
+        </div>
+        <div class="price featured">
+          <div class="pop">POPULAR</div>
+          <div class="tag">Premium</div>
+          <div class="amount">$14.99<span>/mo</span></div>
+          <p class="alt">or $89.99/yr</p>
+          <ul>
+            <li>AI plan generation</li>
+            <li>Camera Form Coach</li>
+            <li>Nutrition tracking</li>
+            <li>AI coach chat</li>
+          </ul>
+        </div>
+        <div class="price">
+          <div class="tag">Founding Member 🔥</div>
+          <div class="amount">$99.99<span> lifetime</span></div>
+          <ul>
+            <li>Everything in Premium</li>
+            <li>One-time payment</li>
+            <li>Capped at 100 spots</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section>
+    <div class="wrap">
+      <div class="rating">
+        <div class="score">5.0</div>
+        <div class="stars">★★★★★</div>
+        <div class="meta">out of 5 · 3 Ratings on the App Store</div>
+      </div>
+      <div class="reviews">
+        <div class="review">
+          <div class="t">Great Workout Program</div>
+          <div class="s">★★★★★</div>
+          <p class="q">"This is an awesome workout app. Plenty of variety for different exercises. I've used it at home with dumbbells and body weight workouts, but you can personalize to what equipment you have access to. Highly recommend for beginners or experienced users!"</p>
+          <div class="who">NagHagRag · Jul 4</div>
+        </div>
+        <div class="review">
+          <div class="t">Workout</div>
+          <div class="s">★★★★★</div>
+          <p class="q">"This is one of the best apps I've ever used. I'm extremely satisfied with it—it's easy to use, reliable, and has exceeded my expectations. I highly recommend it!"</p>
+          <div class="who">Neto760 · Jul 2</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="row">
+      <a class="mark" href="#top">
+        <span class="glyph">R</span>
+        <span class="word">RYZR</span>
+      </a>
+      <div class="store-links">
+        <a class="store-btn sm" href="https://apps.apple.com/us/app/ryzr-personal-trainer/id6767086947?ppid=252d929e-1832-4976-9231-0d6f142d5e7c">
+          <svg viewBox="0 0 24 24"><path d="M17.05 12.04c-.02-2.05 1.68-3.03 1.75-3.08-.95-1.4-2.44-1.59-2.97-1.61-1.26-.13-2.47.74-3.11.74-.64 0-1.63-.72-2.69-.7-1.38.02-2.66.8-3.37 2.04-1.44 2.49-.37 6.17 1.03 8.19.68.99 1.49 2.1 2.55 2.06 1.03-.04 1.42-.66 2.66-.66 1.24 0 1.59.66 2.68.64 1.11-.02 1.81-1 2.49-1.99.78-1.14 1.1-2.25 1.12-2.31-.02-.01-2.15-.82-2.17-3.25zM15.1 6.13c.56-.68.94-1.63.84-2.58-.81.03-1.79.54-2.37 1.22-.52.6-.98 1.56-.86 2.48.9.07 1.83-.46 2.39-1.12z"/></svg>
+          App Store
+        </a>
+        <a class="store-btn sm" href="https://play.google.com/store/apps/details?id=com.ryzr.app&amp;pcampaignid=web_share">
+          <svg viewBox="0 0 24 24"><path d="M3.6 2.4c-.2.3-.3.7-.3 1.2v16.8c0 .5.1.9.3 1.2l9.1-9.6L3.6 2.4zm10.1 8.4l2.6-2.7-9-5.1c-.4-.2-.8-.2-1.1-.1l7.5 7.9zm0 1.4l-7.5 7.9c.3.1.7.1 1.1-.1l9-5.1-2.6-2.7zm5-2.6l-2.1 1.2 2.4 2.5c.6-.4 1-1 1-1.7s-.4-1.3-1.3-2z"/></svg>
+          Google Play
+        </a>
+      </div>
+    </div>
+    <div class="legal">
+      <span>&#169; 2026 RYZR. All rights reserved.</span>
+      <span class="links">
+        <a href="nutrition.html">Nutrition Tracker</a>
+        <a href="privacy-policy.html">Privacy</a>
+        <a href="terms-of-service.html">Terms</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

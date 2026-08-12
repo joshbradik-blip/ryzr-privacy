@@ -1,0 +1,8 @@
+{
+  "name": "myryzr-site",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "@netlify/functions": "^2.0.0"
+  }
+}

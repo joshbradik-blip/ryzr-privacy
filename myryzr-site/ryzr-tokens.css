@@ -1,0 +1,30 @@
+/* RYZR Design Tokens */
+:root {
+  --ryzr-ink:          #050505;
+  --ryzr-card:         #111111;
+  --ryzr-line:         rgba(255, 255, 255, 0.09);
+  --ryzr-orange:       #FF6B1A;
+  --ryzr-orange-dim:   #cc5514;
+  --ryzr-mute:         rgba(255, 255, 255, 0.48);
+  --ryzr-warn:         #FFB800;
+  --ryzr-info:         #4B9EFF;
+
+  /* Surfaces & text steps from the app's design system, for the app-mockup
+     cards and pricing/feature panels on the marketing pages. */
+  --ryzr-surface:      #1A1A1A;
+  --ryzr-surface-2:    #242424;
+  --ryzr-surface-3:    #2E2E2E;
+  --ryzr-text-2:       #C6C6C6;
+  --ryzr-on-orange:    #2A1004;
+  --ryzr-gradient:     linear-gradient(135deg, #FF8C42, #E8550A);
+
+  --ryzr-font-body:    'Archivo', -apple-system, BlinkMacSystemFont, sans-serif;
+  --ryzr-font-display: 'Archivo Black', 'Archivo', sans-serif;
+  --ryzr-font-kicker:  'Bebas Neue', 'Archivo Black', sans-serif;
+
+  --ryzr-radius-card:  20px;
+  --ryzr-radius-pill:  999px;
+
+  --ryzr-shadow-card:  0 4px 40px rgba(0, 0, 0, 0.6);
+  --ryzr-shadow-glow:  0 0 60px rgba(255, 107, 26, 0.25);
+}
