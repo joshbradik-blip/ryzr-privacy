@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>RYZR Nutrition Tracker — Log a meal in seconds</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="description" content="Snap a photo of your plate or type what you ate — RYZR's AI estimates the calories and macros in seconds. No scale, no database searching." />
+<meta name="theme-color" content="#050505" />
+<meta property="og:title" content="RYZR Nutrition Tracker — Log a meal in seconds" />
+<meta property="og:description" content="Snap a photo of your plate or type what you ate — RYZR's AI estimates the calories and macros in seconds." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/athlete-male.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ryzr-tokens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body {
+    margin: 0;
+    background: var(--ryzr-ink);
+    color: #fff;
+    font-family: var(--ryzr-font-body);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img, svg { display: block; max-width: 100%; }
+  h1, h2, h3, p { overflow-wrap: break-word; }
+
+  .wrap { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 clamp(18px, 5vw, 28px); }
+  .wrap.narrow { max-width: 760px; }
+
+  .display { font-family: var(--ryzr-font-display); line-height: 0.95; letter-spacing: -0.025em; margin: 0; }
+  .kicker {
+    font-family: var(--ryzr-font-kicker);
+    letter-spacing: 0.22em;
+    color: var(--ryzr-orange);
+    font-size: 20px;
+    text-transform: uppercase;
+    margin: 0 0 14px;
+  }
+  .body-copy { color: var(--ryzr-text-2); font-size: 17px; line-height: 1.6; margin: 0; }
+
+  /* ---------- Top bar ---------- */
+  .topbar { border-bottom: 1px solid var(--ryzr-line); }
+  .topbar .row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 0; }
+  .mark { display: inline-flex; align-items: center; gap: 10px; }
+  .mark .glyph {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: #000; border: 1px solid var(--ryzr-line);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--ryzr-font-display); font-size: 15px; line-height: 1;
+  }
+  .mark .word { font-family: var(--ryzr-font-display); font-size: 18px; letter-spacing: 0.08em; }
+
+  .store-links { display: flex; flex-wrap: wrap; gap: 10px; }
+  .store-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 16px;
+    border-radius: var(--ryzr-radius-pill);
+    background: var(--ryzr-surface);
+    border: 1px solid var(--ryzr-line);
+    color: #fff; font-weight: 700; font-size: 13px;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .store-btn:hover { border-color: rgba(255,255,255,0.26); transform: translateY(-2px); }
+  .store-btn svg { width: 16px; height: 16px; flex-shrink: 0; fill: currentColor; }
+  .store-btn.lg { padding: 13px 24px; font-size: 15px; font-weight: 800; gap: 9px; }
+  .store-btn.lg svg { width: 18px; height: 18px; }
+  .store-btn.primary { background: var(--ryzr-gradient); border-color: transparent; color: var(--ryzr-on-orange); }
+  .store-btn.primary:hover { box-shadow: var(--ryzr-shadow-glow); }
+
+  /* ---------- Hero ---------- */
+  .hero { text-align: center; padding: 60px 0 46px; }
+  .hero h1 { font-size: clamp(32px, 5.6vw, 52px); }
+  .hero p { color: var(--ryzr-text-2); font-size: clamp(16px, 2vw, 18px); line-height: 1.6; max-width: 540px; margin: 18px auto 0; }
+
+  /* ---------- How it works ---------- */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding-bottom: 64px; }
+  .step { background: var(--ryzr-surface); border: 1px solid var(--ryzr-line); border-radius: var(--ryzr-radius-card); padding: 26px; }
+  .step .ico {
+    width: 44px; height: 44px; border-radius: 999px; margin-bottom: 16px;
+    background: rgba(255,107,26,0.15);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step .ico svg { width: 22px; height: 22px; fill: var(--ryzr-orange); }
+  .step h3 { font-size: 16px; font-weight: 800; margin: 0 0 8px; }
+  .step p { color: var(--ryzr-text-2); font-size: 14px; line-height: 1.6; margin: 0; }
+
+  /* ---------- Split sections ---------- */
+  section { padding: clamp(56px, 8vw, 78px) 0; }
+  .band { background: var(--ryzr-surface); border-top: 1px solid var(--ryzr-line); border-bottom: 1px solid var(--ryzr-line); }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 56px); align-items: center; }
+  .split h2 { font-size: clamp(26px, 4vw, 38px); margin-bottom: 16px; }
+  .split ul.points { margin: 20px 0 0; padding-left: 20px; color: var(--ryzr-text-2); font-size: 15px; line-height: 1.9; }
+
+  /* ---------- Mockups ---------- */
+  .mock { border: 1px solid var(--ryzr-line); border-radius: var(--ryzr-radius-card); padding: 26px; }
+  .mock.on-band { background: var(--ryzr-ink); }
+  .mock.on-ink { background: var(--ryzr-surface); }
+  .mock-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+  .mock-title { font-size: 18px; font-weight: 800; }
+  .mock-head svg { width: 20px; height: 20px; fill: var(--ryzr-mute); }
+  .mock .intro { font-size: 14px; color: var(--ryzr-text-2); line-height: 1.6; margin: 0 0 18px; }
+
+  .snap-btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 16px; border-radius: 14px;
+    border: 1px solid var(--ryzr-orange); color: var(--ryzr-orange);
+    font-weight: 700; font-size: 14px; margin-bottom: 16px;
+  }
+  .snap-btn svg { width: 18px; height: 18px; fill: currentColor; }
+  .or { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .or .line { flex: 1; height: 1px; background: var(--ryzr-line); }
+  .or span { font-size: 11px; font-weight: 700; color: var(--ryzr-mute); letter-spacing: 0.06em; }
+  .field {
+    padding: 14px; border-radius: 14px;
+    background: var(--ryzr-surface); border: 1px solid var(--ryzr-line);
+    color: var(--ryzr-mute); font-size: 13px; line-height: 1.5; margin-bottom: 16px;
+  }
+  .mock.on-ink .field { background: var(--ryzr-ink); }
+  .estimate {
+    padding: 14px; border-radius: var(--ryzr-radius-pill);
+    background: var(--ryzr-gradient); color: var(--ryzr-on-orange);
+    font-weight: 800; font-size: 14px; text-align: center;
+  }
+
+  .log-pill {
+    padding: 8px 14px; border-radius: var(--ryzr-radius-pill);
+    border: 1px solid var(--ryzr-orange); color: var(--ryzr-orange);
+    font-size: 13px; font-weight: 700;
+  }
+  .ring-row { display: flex; justify-content: center; margin-bottom: 20px; }
+  .ring {
+    width: 160px; height: 160px; border-radius: 999px;
+    background: conic-gradient(var(--ryzr-orange) 0deg 56deg, var(--ryzr-surface-3) 56deg 360deg);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ring .core {
+    width: 128px; height: 128px; border-radius: 999px;
+    background: var(--ryzr-surface);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .ring .kcal { font-family: var(--ryzr-font-display); font-size: 32px; line-height: 1; }
+  .ring .of { font-size: 11px; color: var(--ryzr-mute); margin-top: 4px; }
+  .ring .left { font-size: 11px; color: var(--ryzr-mute); }
+
+  .macros { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--ryzr-text-2); margin-bottom: 16px; }
+  .macros b { color: #fff; }
+  .meal { padding: 14px; border-radius: 14px; background: var(--ryzr-ink); border: 1px solid var(--ryzr-line); }
+  .meal .head { color: var(--ryzr-orange); font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+  .meal .row { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; }
+  .meal .row .sub { color: var(--ryzr-mute); font-size: 12px; }
+
+  /* ---------- CTA ---------- */
+  .cta { border-top: 1px solid var(--ryzr-line); text-align: center; }
+  .cta h2 { font-size: clamp(26px, 4vw, 40px); margin-bottom: 26px; }
+  .cta .store-links { justify-content: center; }
+
+  @media (max-width: 900px) {
+    .steps { grid-template-columns: 1fr; }
+    .split { grid-template-columns: 1fr; }
+    .split .copy { order: 1; }
+    .split .mock { order: 2; }
+  }
+  @media (max-width: 620px) {
+    section { padding: 48px 0; }
+    .hero { padding: 44px 0 34px; }
+    .topbar .row { flex-direction: column; align-items: flex-start; }
+    .macros { flex-direction: column; gap: 4px; }
+    .cta .store-links { flex-direction: column; width: 100%; }
+    .cta .store-btn { justify-content: center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="wrap row">
+    <a class="mark" href="index.html">
+      <span class="glyph">R</span>
+      <span class="word">RYZR</span>
+    </a>
+    <div class="store-links">
+      <a class="store-btn" href="https://apps.apple.com/us/app/ryzr-personal-trainer/id6767086947?ppid=252d929e-1832-4976-9231-0d6f142d5e7c">
+        <svg viewBox="0 0 24 24"><path d="M17.05 12.04c-.02-2.05 1.68-3.03 1.75-3.08-.95-1.4-2.44-1.59-2.97-1.61-1.26-.13-2.47.74-3.11.74-.64 0-1.63-.72-2.69-.7-1.38.02-2.66.8-3.37 2.04-1.44 2.49-.37 6.17 1.03 8.19.68.99 1.49 2.1 2.55 2.06 1.03-.04 1.42-.66 2.66-.66 1.24 0 1.59.66 2.68.64 1.11-.02 1.81-1 2.49-1.99.78-1.14 1.1-2.25 1.12-2.31-.02-.01-2.15-.82-2.17-3.25zM15.1 6.13c.56-.68.94-1.63.84-2.58-.81.03-1.79.54-2.37 1.22-.52.6-.98 1.56-.86 2.48.9.07 1.83-.46 2.39-1.12z"/></svg>
+        App Store
+      </a>
+      <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.ryzr.app&amp;pcampaignid=web_share">
+        <svg viewBox="0 0 24 24"><path d="M3.6 2.4c-.2.3-.3.7-.3 1.2v16.8c0 .5.1.9.3 1.2l9.1-9.6L3.6 2.4zm10.1 8.4l2.6-2.7-9-5.1c-.4-.2-.8-.2-1.1-.1l7.5 7.9zm0 1.4l-7.5 7.9c.3.1.7.1 1.1-.1l9-5.1-2.6-2.7zm5-2.6l-2.1 1.2 2.4 2.5c.6-.4 1-1 1-1.7s-.4-1.3-1.3-2z"/></svg>
+        Google Play
+      </a>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="wrap narrow">
+      <p class="kicker">Nutrition Tracker</p>
+      <h1 class="display">Log a meal in seconds — no scale, no search</h1>
+      <p>Snap a photo of your plate, or type what you ate. RYZR's AI estimates the calories and macros so you can review and log — no manual database searching.</p>
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div class="wrap">
+    <div class="steps">
+      <div class="step">
+        <div class="ico">
+          <svg viewBox="0 0 24 24"><path d="M9 3 7.2 5H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.2L15 3H9zm3 5.5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6z"/></svg>
+        </div>
+        <h3>1. Snap or describe</h3>
+        <p>Take a photo of your plate, or type it out — "grilled chicken breast, cup of rice, side salad with olive oil."</p>
+      </div>
+      <div class="step">
+        <div class="ico">
+          <svg viewBox="0 0 24 24"><path d="M12 2.5 13.9 8l5.6 1.9-5.6 1.9L12 17.4l-1.9-5.6L4.5 9.9 10.1 8 12 2.5zM5.5 15l.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9.9-2.6zm12.5-13 .7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2z"/></svg>
+        </div>
+        <h3>2. AI estimates</h3>
+        <p>RYZR guesstimates the calories, protein, carbs, and fat in the meal — ready to review before it's logged.</p>
+      </div>
+      <div class="step">
+        <div class="ico">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6-4-4 1.6-1.6 2.4 2.4 5.2-5.2 1.6 1.6-6.8 6.8z"/></svg>
+        </div>
+        <h3>3. Track against your targets</h3>
+        <p>See it against daily targets estimated from your profile, training days, and goal — refine as you go.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Two ways in -->
+  <section class="band">
+    <div class="wrap split">
+      <div class="copy">
+        <h2 class="display">Two ways in — camera or keyboard</h2>
+        <p class="body-copy">Some meals are easier to snap a photo of. Others are faster to type. RYZR handles both the same way — describe it, and the estimate comes back in seconds.</p>
+        <ul class="points">
+          <li>Photo-based estimation for a full plate</li>
+          <li>Free-text description for packaged or restaurant food</li>
+          <li>Calories and macros broken out by protein, carbs, and fat</li>
+        </ul>
+      </div>
+      <div class="mock on-band">
+        <div class="mock-head">
+          <span class="mock-title">Log a meal ✨</span>
+          <svg viewBox="0 0 24 24"><path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4z"/></svg>
+        </div>
+        <p class="intro">Snap a photo or type what you ate — we'll estimate the calories and macros for you to review.</p>
+        <div class="snap-btn">
+          <svg viewBox="0 0 24 24"><path d="M9 3 7.2 5H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.2L15 3H9zm3 5.5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6z"/></svg>
+          Snap a photo of your plate
+        </div>
+        <div class="or">
+          <span class="line"></span>
+          <span>OR DESCRIBE IT</span>
+          <span class="line"></span>
+        </div>
+        <div class="field">e.g. "grilled chicken breast, cup of rice, side salad with olive oil"</div>
+        <div class="estimate">Estimate nutrition ✨</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- See it against your day -->
+  <section>
+    <div class="wrap split">
+      <div class="mock on-ink">
+        <div class="mock-head">
+          <span class="mock-title">Nutrition</span>
+          <span class="log-pill">+ Log food</span>
+        </div>
+        <div class="ring-row">
+          <div class="ring">
+            <div class="core">
+              <span class="kcal">480</span>
+              <span class="of">of 3066 kcal</span>
+              <span class="left">2586 left</span>
+            </div>
+          </div>
+        </div>
+        <div class="macros">
+          <span><b>Protein</b> 24/167g</span>
+          <span><b>Carbs</b> 20/413g</span>
+          <span><b>Fat</b> 32/83g</span>
+        </div>
+        <div class="meal">
+          <div class="head">Breakfast · 480 kcal</div>
+          <div class="row">
+            <span>egg casserole <span class="sub">P 24 · C 20 · F 32</span></span>
+            <b>480</b>
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <h2 class="display">See it against your day</h2>
+        <p class="body-copy">Every logged meal rolls into a daily ring of calories and macros, with targets estimated from your profile, training days, and goal — a starting point you can refine as you track.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="wrap">
+      <h2 class="display">Stop guessing what's in your food</h2>
+      <div class="store-links">
+        <a class="store-btn lg primary" href="https://apps.apple.com/us/app/ryzr-personal-trainer/id6767086947?ppid=252d929e-1832-4976-9231-0d6f142d5e7c">
+          <svg viewBox="0 0 24 24"><path d="M17.05 12.04c-.02-2.05 1.68-3.03 1.75-3.08-.95-1.4-2.44-1.59-2.97-1.61-1.26-.13-2.47.74-3.11.74-.64 0-1.63-.72-2.69-.7-1.38.02-2.66.8-3.37 2.04-1.44 2.49-.37 6.17 1.03 8.19.68.99 1.49 2.1 2.55 2.06 1.03-.04 1.42-.66 2.66-.66 1.24 0 1.59.66 2.68.64 1.11-.02 1.81-1 2.49-1.99.78-1.14 1.1-2.25 1.12-2.31-.02-.01-2.15-.82-2.17-3.25zM15.1 6.13c.56-.68.94-1.63.84-2.58-.81.03-1.79.54-2.37 1.22-.52.6-.98 1.56-.86 2.48.9.07 1.83-.46 2.39-1.12z"/></svg>
+          Download on the App Store
+        </a>
+        <a class="store-btn lg" href="https://play.google.com/store/apps/details?id=com.ryzr.app&amp;pcampaignid=web_share">
+          <svg viewBox="0 0 24 24"><path d="M3.6 2.4c-.2.3-.3.7-.3 1.2v16.8c0 .5.1.9.3 1.2l9.1-9.6L3.6 2.4zm10.1 8.4l2.6-2.7-9-5.1c-.4-.2-.8-.2-1.1-.1l7.5 7.9zm0 1.4l-7.5 7.9c.3.1.7.1 1.1-.1l9-5.1-2.6-2.7zm5-2.6l-2.1 1.2 2.4 2.5c.6-.4 1-1 1-1.7s-.4-1.3-1.3-2z"/></svg>
+          Get it on Google Play
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+</body>
+</html>
