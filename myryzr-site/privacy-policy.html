@@ -60,11 +60,13 @@
 </ul>
 <p>Health data read from Apple Health or Health Connect is processed on your device and is never transmitted to these third-party services.</p>
 
-<h2>6. Advertising and Analytics</h2>
+<h2 id="advertising">6. Advertising and Analytics</h2>
 <p>We use the <strong>Meta (Facebook/Instagram) SDK</strong> to measure the performance of our advertising campaigns — for example, to understand when someone installs RYZR after seeing an ad, or completes a subscription purchase. This may involve sharing device and usage identifiers (such as your device's advertising identifier) with Meta Platforms, Inc., governed by <a href="https://www.facebook.com/privacy/policy">Meta's Privacy Policy</a>.</p>
 <p>On iOS, RYZR will ask for your permission via Apple's App Tracking Transparency prompt before using your device's advertising identifier for this purpose. You can allow or deny this at any time in Settings &gt; Privacy &amp; Security &gt; Tracking. On Android, this is governed by your device's Ads settings (Settings &gt; Google &gt; Ads). Declining does not affect your ability to use RYZR.</p>
 <p>Subscription purchase events may also be shared with Meta through our subscription provider, RevenueCat, for the same advertising-measurement purpose.</p>
 <p>Our website uses the <strong>OpenAI advertising pixel</strong> to measure visits and actions associated with ChatGPT advertising campaigns. The pixel may store a first-party cookie containing an OpenAI ad-click reference and send campaign measurement information to OpenAI. It does not give us access to visitors' ChatGPT conversations. This measurement is governed by <a href="https://openai.com/policies/privacy-policy/">OpenAI's Privacy Policy</a>.</p>
+
+<p>On our website, the OpenAI advertising pixel and our own funnel analytics (page views and button clicks, stored in our Supabase database along with campaign parameters such as utm tags, using a random session ID and no cookies) only run <strong>after you click Accept</strong> on our cookie banner. If you decline, or your browser sends a Global Privacy Control signal, they do not run. You can change your choice at any time with the &ldquo;Cookie settings&rdquo; link in the footer of our pages. Our site also loads fonts from Google Fonts, which may receive your IP address.</p>
 
 <h2>7. Data Storage and Security</h2>
 <p>Your data is stored securely using Supabase infrastructure. We use industry-standard encryption for data in transit and at rest. We do not sell your personal data to third parties.</p>
@@ -88,5 +90,6 @@
 <p>If you have any questions about this privacy policy or your data, please contact us at:</p>
 <p><a href="mailto:sendtojoshperry@gmail.com">sendtojoshperry@gmail.com</a></p>
 
+<script src="/ryzr-consent.js" defer></script>
 </body>
 </html>
