@@ -370,7 +370,7 @@
         <p class="kicker">New — Nutrition Tracker</p>
         <h2 class="display">Just show it what you're eating</h2>
         <p class="body-copy">Snap a photo of your plate, or type what you ate in plain English. RYZR estimates the calories and macros in seconds, so tracking never slows you down.</p>
-        <a class="btn-gradient" href="nutrition.html">
+        <a class="btn-gradient" href="nutrition.html" data-ryzr-cta="nutrition_see_how">
           See how it works
           <svg viewBox="0 0 24 24"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.7-1.7 4.5-4.5H3.4v-2.4h12.6l-4.5-4.5 1.7-1.7z"/></svg>
         </a>
@@ -520,5 +520,10 @@
   </div>
 </footer>
 
+<!-- Funnel tracking: landing views, CTA clicks and store clicks -> Supabase web_events.
+     The anon key is public by design; the table is insert-only. See ryzr-web.js. -->
+<script src="/ryzr-web.js" defer
+  data-supabase-url="https://fuyzcssdryngvxmmjkvn.supabase.co"
+  data-supabase-key="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ1eXpjc3NkcnluZ3Z4bW1qa3ZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDI2NjEsImV4cCI6MjA5MjQ3ODY2MX0.AaRxwuC0Mr2FKj-7HbUO3WBCAduR3qQzPN0WM4r_eVQ"></script>
 </body>
 </html>
