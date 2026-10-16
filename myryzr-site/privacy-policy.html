@@ -16,7 +16,7 @@
 <body>
 
 <h1>Privacy Policy</h1>
-<span class="updated">Last updated: September 6, 2026</span>
+<span class="updated">Last updated: October 16, 2026</span>
 
 <p>RYZR ("we", "our", or "us") is committed to protecting your privacy. This policy explains what information we collect, how we use it, and your rights regarding your data.</p>
 
@@ -26,43 +26,62 @@
   <li><strong>Account information:</strong> Your name, email address, and password when you create an account.</li>
   <li><strong>Profile and fitness data:</strong> Age, sex, height, weight, fitness level, injuries, training goals, available equipment, and workout schedule you provide during onboarding.</li>
   <li><strong>Workout data:</strong> Exercises performed, sets, reps, weights, form scores, and session history.</li>
-  <li><strong>Health data (with your permission):</strong> If you choose to connect Apple Health (iOS) or Health Connect (Android), RYZR reads your step count and body weight. This access is read-only, is granted by you through the system permission prompt, and can be revoked at any time. See the "Apple Health &amp; Health Connect" section below.</li>
-  <li><strong>Camera and images:</strong> When you use Form Coach, still frames from your device camera are captured and sent to Anthropic's Claude AI for real-time form analysis. These images are not stored by us and are processed solely to generate coaching feedback.</li>
+  <li><strong>Health data (with your permission):</strong> If you choose to connect Apple Health (iOS) or Health Connect (Android), RYZR reads activity, body, heart, and sleep data such as steps, heart rate variability, and sleep. This access is read-only, is granted by you through the system permission prompt, and can be revoked at any time. The full list and how we use it are in the "Apple Health &amp; Health Connect" section below.</li>
+  <li><strong>Form Coach measurements:</strong> Form Coach analyzes your camera feed on your device. After each set, a short text summary of what it measured (such as rep count, depth, and tempo) is sent to Anthropic's Claude AI to write a coaching tip. See "Camera and Microphone" below.</li>
+  <li><strong>Photos you choose to share:</strong> If you attach a photo in the AI coach chat, or log a meal from a photo, that photo is sent to Anthropic's Claude AI to answer your question or estimate the meal's nutrition. We do not store these photos.</li>
   <li><strong>Payment information:</strong> Subscription and purchase data is processed by Apple (App Store) or Google (Play Store) and RevenueCat. We do not store your payment card details.</li>
-  <li><strong>Device information:</strong> Device type, operating system, and push notification tokens for delivering your daily coaching messages.</li>
+  <li><strong>Device information:</strong> Device type, operating system, and push notification tokens for delivering your daily coaching messages. If you use the free version and allow it, your device's advertising identifier is used to show and measure ads (see "Advertising and Analytics" below).</li>
 </ul>
 
 <h2>2. How We Use Your Information</h2>
 <ul>
   <li>To generate personalized AI workout plans tailored to your goals, schedule, and physical condition.</li>
-  <li>To provide real-time form coaching feedback via your device camera.</li>
-  <li>To read your step count and body weight from Apple Health or Health Connect (only with your permission) to personalize your training and display your progress.</li>
+  <li>To provide form coaching feedback during your workouts.</li>
+  <li>To read health data from Apple Health or Health Connect (only with your permission) to estimate your daily recovery, adjust your training, and show your progress.</li>
   <li>To send you daily motivational affirmations via push notification (you can disable these in your device settings at any time).</li>
   <li>To track your workout progress, streaks, and personal records.</li>
   <li>To manage your subscription and process purchases.</li>
+  <li>To show ads in the free version of the app, and to measure our own advertising campaigns.</li>
   <li>To operate, maintain, and improve the app.</li>
 </ul>
 
 <h2>3. Camera and Microphone</h2>
-<p>Form Coach uses your device's camera to capture still images for AI form analysis. Microphone access is used for voice coaching feedback. Camera frames sent for analysis are processed by Anthropic's API and are not retained or stored by RYZR or Anthropic beyond the duration of the API request. Video is never recorded or transmitted — only still images at intervals during an active Form Coach session.</p>
+<p><strong>Camera.</strong> Form Coach tracks your body position and counts reps by analyzing your camera feed on your device. Video is never recorded or uploaded. After each set, Form Coach sends a short text summary of its measurements (for example rep count, depth, tempo, and which form issues it noticed), with no images, to Anthropic's Claude AI to write a coaching tip. Older versions of the app that cannot track your body on the device instead send a still image from the camera every few seconds to Anthropic for analysis while Form Coach is running. RYZR does not store these images, and Anthropic processes them only to return the feedback.</p>
+<p><strong>Microphone.</strong> The microphone is used only when you talk to the AI coach. Your speech is turned into text by your device's built-in speech recognition (provided by Apple or Google), and only the resulting text is sent to the AI coach as your message.</p>
 
 <h2>4. Apple Health &amp; Health Connect</h2>
-<p>RYZR can optionally read health data from Apple Health (HealthKit) on iOS and Health Connect on Android. With your explicit permission, we read two read-only data types: your <strong>step count</strong> and your <strong>body weight</strong>. We use this information solely to personalize your training plans and show your progress inside the app.</p>
-<p>RYZR never writes data to Apple Health or Health Connect, and connecting them is entirely optional — the app works without it. Health data obtained through Apple Health or Health Connect is <strong>not</strong> used for advertising or marketing, is <strong>not</strong> sold or shared with or disclosed to third parties, and is <strong>not</strong> used for any purpose other than providing the features described above. Our access to and use of Apple Health data complies with Apple's HealthKit requirements. You can grant or revoke this access at any time in your device's Health (iOS) or Health Connect (Android) settings.</p>
+<p>RYZR can optionally read health data from Apple Health (HealthKit) on iOS and Health Connect on Android. With your explicit permission, RYZR reads the following data, read-only, where your device provides it:</p>
+<ul>
+  <li><strong>Activity:</strong> steps, active calories burned, and walking and running distance</li>
+  <li><strong>Body measurements:</strong> body weight, body fat percentage, and lean body mass</li>
+  <li><strong>Heart:</strong> resting heart rate, heart rate variability, and heart rate</li>
+  <li><strong>Sleep:</strong> sleep duration</li>
+</ul>
+<p>We use this data to calculate a daily recovery ("readiness") score, to adjust your workouts to how recovered you are, and to show your activity and progress in the app. Here is where it goes:</p>
+<ul>
+  <li><strong>Your RYZR account:</strong> daily summaries (such as your step total, resting heart rate, heart rate variability, sleep minutes, and active calories for each day) are stored in your account on our database provider, Supabase, so your history is kept if you change phones.</li>
+  <li><strong>The AI coach:</strong> when RYZR creates your workout plan or answers you in the AI coach chat, it sends Anthropic's Claude AI a short recovery summary: your readiness score and the factors behind it, such as your heart rate variability, resting heart rate, and sleep compared with your usual levels. Anthropic processes it on our behalf only to produce that response.</li>
+</ul>
+<p>RYZR never writes data to Apple Health or Health Connect, and connecting them is entirely optional. The app works without it. Health data obtained through Apple Health or Health Connect is <strong>never</strong> used for advertising or marketing, is <strong>never</strong> sold, and is <strong>never</strong> shared with advertising networks, data brokers, or any other third party. The only exceptions are the service providers named above, Supabase and Anthropic, which handle it on our behalf to provide these features. Our access to and use of Apple Health data complies with Apple's HealthKit requirements. You can grant or revoke this access at any time in your device's Health (iOS) or Health Connect (Android) settings, and you can ask us to delete the health data stored in your account (see "Data Retention" below).</p>
 
 <h2>5. Third-Party Services</h2>
 <p>We use the following third-party services, each governed by their own privacy policies:</p>
 <ul>
   <li><strong>Supabase</strong> — user authentication and data storage (<a href="https://supabase.com/privacy">supabase.com/privacy</a>)</li>
-  <li><strong>Anthropic (Claude AI)</strong> — AI workout plan generation and form analysis (<a href="https://www.anthropic.com/privacy">anthropic.com/privacy</a>)</li>
+  <li><strong>Anthropic (Claude AI)</strong> — AI workout plans, the AI coach chat, form coaching tips, and meal photo analysis (<a href="https://www.anthropic.com/privacy">anthropic.com/privacy</a>)</li>
   <li><strong>RevenueCat</strong> — subscription management (<a href="https://www.revenuecat.com/privacy">revenuecat.com/privacy</a>)</li>
+  <li><strong>Google AdMob</strong> — ads in the free version of the app (<a href="https://policies.google.com/technologies/partner-sites">How Google uses information from apps that use its services</a>)</li>
+  <li><strong>Meta (Facebook/Instagram) SDK</strong> — measuring our advertising campaigns (<a href="https://www.facebook.com/privacy/policy">facebook.com/privacy/policy</a>)</li>
+  <li><strong>Amazon Associates</strong> — affiliate links to recommended gear and supplements (<a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GX7NJQ4ZB8MHFRNJ">Amazon Privacy Notice</a>)</li>
   <li><strong>Apple / Google</strong> — payment processing and app distribution</li>
 </ul>
-<p>Health data read from Apple Health or Health Connect is processed on your device and is never transmitted to these third-party services.</p>
+<p>Health data read from Apple Health or Health Connect is shared only with Supabase and Anthropic, as described in "Apple Health &amp; Health Connect" above, and never with any advertising or analytics provider.</p>
 
 <h2>6. Advertising and Analytics</h2>
-<p>We use the <strong>Meta (Facebook/Instagram) SDK</strong> to measure the performance of our advertising campaigns — for example, to understand when someone installs RYZR after seeing an ad, or completes a subscription purchase. This may involve sharing device and usage identifiers (such as your device's advertising identifier) with Meta Platforms, Inc., governed by <a href="https://www.facebook.com/privacy/policy">Meta's Privacy Policy</a>.</p>
-<p>On iOS, RYZR will ask for your permission via Apple's App Tracking Transparency prompt before using your device's advertising identifier for this purpose. You can allow or deny this at any time in Settings &gt; Privacy &amp; Security &gt; Tracking. On Android, this is governed by your device's Ads settings (Settings &gt; Google &gt; Ads). Declining does not affect your ability to use RYZR.</p>
+<p><strong>Ads in the free version.</strong> If you use RYZR without a Premium subscription, we may show an ad from Google AdMob after you finish a workout. Ads are never shown during a workout, and Premium subscribers never see them. To serve and measure these ads, Google may collect device information such as your device's advertising identifier, IP address, and app interaction data. Ads are personalized only if you allow it: on iOS through Apple's App Tracking Transparency prompt, and in the EEA, UK, and Switzerland through the consent form shown in the app. Otherwise you may still see non-personalized ads. Your health, fitness, and workout data is <strong>never</strong> shared with Google or any ad network, and is never used to choose which ads you see.</p>
+<p><strong>Affiliate links.</strong> The Gear tab and the "Refuel" card after a workout link to products on Amazon. If you buy through these links, RYZR may earn a commission at no extra cost to you. Tapping a link opens Amazon, and anything you do there is governed by Amazon's privacy notice. We do not share any of your information with Amazon.</p>
+<p><strong>Measuring our own ads.</strong> We use the <strong>Meta (Facebook/Instagram) SDK</strong> to measure the performance of our advertising campaigns — for example, to understand when someone installs RYZR after seeing an ad, or completes a subscription purchase. This may involve sharing device and usage identifiers (such as your device's advertising identifier) with Meta Platforms, Inc., governed by <a href="https://www.facebook.com/privacy/policy">Meta's Privacy Policy</a>.</p>
+<p>On iOS, RYZR will ask for your permission via Apple's App Tracking Transparency prompt before using your device's advertising identifier for advertising. You can allow or deny this at any time in Settings &gt; Privacy &amp; Security &gt; Tracking. On Android, this is governed by your device's Ads settings (Settings &gt; Google &gt; Ads). Declining does not affect your ability to use RYZR.</p>
 <p>Subscription purchase events may also be shared with Meta through our subscription provider, RevenueCat, for the same advertising-measurement purpose.</p>
 <p>Our website uses the <strong>OpenAI advertising pixel</strong> to measure visits and actions associated with ChatGPT advertising campaigns. The pixel may store a first-party cookie containing an OpenAI ad-click reference and send campaign measurement information to OpenAI. It does not give us access to visitors' ChatGPT conversations. This measurement is governed by <a href="https://openai.com/policies/privacy-policy/">OpenAI's Privacy Policy</a>.</p>
 
