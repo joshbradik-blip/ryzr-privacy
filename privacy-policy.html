@@ -29,6 +29,7 @@
   <li><strong>Health data (with your permission):</strong> If you choose to connect Apple Health (iOS) or Health Connect (Android), RYZR reads activity, body, heart, and sleep data such as steps, heart rate variability, and sleep. This access is read-only, is granted by you through the system permission prompt, and can be revoked at any time. The full list and how we use it are in the "Apple Health &amp; Health Connect" section below.</li>
   <li><strong>Form Coach measurements:</strong> Form Coach analyzes your camera feed on your device. After each set, a short text summary of what it measured (such as rep count, depth, and tempo) is sent to Anthropic's Claude AI to write a coaching tip. See "Camera and Microphone" below.</li>
   <li><strong>Photos you choose to share:</strong> If you attach a photo in the AI coach chat, or log a meal from a photo, that photo is sent to Anthropic's Claude AI to answer your question or estimate the meal's nutrition. We do not store these photos.</li>
+  <li><strong>Messages to the AI coach:</strong> What you type or say to the AI coach is sent to Anthropic's Claude AI to write a reply, together with the context it needs, such as your profile, recent workouts, and recovery summary. We do not store your coach chat history on our servers.</li>
   <li><strong>Payment information:</strong> Subscription and purchase data is processed by Apple (App Store) or Google (Play Store) and RevenueCat. We do not store your payment card details.</li>
   <li><strong>Device information:</strong> Device type, operating system, and push notification tokens for delivering your daily coaching messages. If you use the free version and allow it, your device's advertising identifier is used to show and measure ads (see "Advertising and Analytics" below).</li>
 </ul>
@@ -78,7 +79,7 @@
 <p>Health data read from Apple Health or Health Connect is shared only with Supabase and Anthropic, as described in "Apple Health &amp; Health Connect" above, and never with any advertising or analytics provider.</p>
 
 <h2>6. Advertising and Analytics</h2>
-<p><strong>Ads in the free version.</strong> If you use RYZR without a Premium subscription, we may show an ad from Google AdMob after you finish a workout. Ads are never shown during a workout, and Premium subscribers never see them. To serve and measure these ads, Google may collect device information such as your device's advertising identifier, IP address, and app interaction data. Ads are personalized only if you allow it: on iOS through Apple's App Tracking Transparency prompt, and in the EEA, UK, and Switzerland through the consent form shown in the app. Otherwise you may still see non-personalized ads. Your health, fitness, and workout data is <strong>never</strong> shared with Google or any ad network, and is never used to choose which ads you see.</p>
+<p><strong>Ads in the free version.</strong> If you use RYZR without a Premium subscription, we may show an ad from Google AdMob after you finish a workout. Ads are never shown during a workout, and Premium subscribers never see them. To serve and measure these ads and to prevent ad fraud, Google may collect your device's advertising identifier, your IP address (from which it can estimate your approximate location), how you interact with ads, and diagnostic information such as app crashes and performance. Ads are personalized only if you allow it: on iOS through Apple's App Tracking Transparency prompt, and in the EEA, UK, and Switzerland through the consent form shown in the app. Otherwise you may still see non-personalized ads. Your health, fitness, and workout data is <strong>never</strong> shared with Google or any ad network, and is never used to choose which ads you see.</p>
 <p><strong>Affiliate links.</strong> The Gear tab and the "Refuel" card after a workout link to products on Amazon. If you buy through these links, RYZR may earn a commission at no extra cost to you. Tapping a link opens Amazon, and anything you do there is governed by Amazon's privacy notice. We do not share any of your information with Amazon.</p>
 <p><strong>Measuring our own ads.</strong> We use the <strong>Meta (Facebook/Instagram) SDK</strong> to measure the performance of our advertising campaigns — for example, to understand when someone installs RYZR after seeing an ad, or completes a subscription purchase. This may involve sharing device and usage identifiers (such as your device's advertising identifier) with Meta Platforms, Inc., governed by <a href="https://www.facebook.com/privacy/policy">Meta's Privacy Policy</a>.</p>
 <p>On iOS, RYZR will ask for your permission via Apple's App Tracking Transparency prompt before using your device's advertising identifier for advertising. You can allow or deny this at any time in Settings &gt; Privacy &amp; Security &gt; Tracking. On Android, this is governed by your device's Ads settings (Settings &gt; Google &gt; Ads). Declining does not affect your ability to use RYZR.</p>
@@ -88,14 +89,20 @@
 <h2>7. Data Storage and Security</h2>
 <p>Your data is stored securely using Supabase infrastructure. We use industry-standard encryption for data in transit and at rest. We do not sell your personal data to third parties.</p>
 
-<h2>8. Data Retention</h2>
-<p>We retain your data for as long as your account is active. You may request deletion of your account and all associated data at any time by contacting us at the email below. Upon request, we will delete your data within 30 days.</p>
+<h2>8. Data Retention and Deletion</h2>
+<p>We keep your data for as long as your account is active. You can delete your account at any time:</p>
+<ul>
+  <li><strong>In the app:</strong> go to Profile &gt; Delete account. Your account and its data are deleted immediately.</li>
+  <li><strong>By email:</strong> if you can no longer use the app, follow the steps on our <a href="https://joshbradik-blip.github.io/ryzr-privacy/delete-request.html">data deletion page</a>, and we will delete your data within 30 days.</li>
+</ul>
+<p>Deleting your account removes your login, profile, workout history and plans, health data synced from Apple Health or Health Connect, nutrition logs, body measurements, and referral records. Basic app-usage events (for example, that a workout was completed) are kept only with your account identifier removed, so they can no longer be linked to you. Subscription records held by Apple, Google, and RevenueCat are governed by their own retention policies, and deleting your account does not cancel an active subscription; cancel it in your App Store or Google Play settings.</p>
 
 <h2>9. Children's Privacy</h2>
 <p>RYZR is not intended for use by anyone under the age of 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, please contact us and we will delete it promptly.</p>
 
 <h2>10. Your Rights</h2>
 <p>Depending on your location, you may have the right to access, correct, or delete your personal data. To exercise these rights, contact us at the address below. We will respond within 30 days.</p>
+<p>We do not sell your personal data for money. However, sharing your device's advertising identifier and app activity with Google and Meta for advertising, as described in "Advertising and Analytics," may count as "sharing" for targeted advertising under some US state privacy laws. You can opt out at any time by declining tracking in Apple's App Tracking Transparency prompt (or in Settings &gt; Privacy &amp; Security &gt; Tracking) on iOS, or by deleting or resetting your advertising ID in Settings &gt; Google &gt; Ads on Android. You can also email us to opt out.</p>
 
 <h2>11. Push Notifications</h2>
 <p>We may send you daily motivational messages via push notification. You can opt out at any time through your device's notification settings or within the RYZR app.</p>
