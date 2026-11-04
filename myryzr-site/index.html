@@ -96,6 +96,15 @@
   .hero { text-align: center; padding: 54px 0 38px; }
   .hero h1 { font-size: clamp(36px, 6.4vw, 58px); }
   .hero p { color: var(--ryzr-text-2); font-size: clamp(17px, 2.1vw, 19px); line-height: 1.5; max-width: 540px; margin: 18px auto 0; }
+  .hero-art {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px; max-width: 940px; margin-top: 36px;
+  }
+  .hero-art img {
+    width: 100%; height: auto;
+    border-radius: var(--ryzr-radius-card);
+    border: 1px solid var(--ryzr-line);
+  }
 
   /* ---------- Product demo video ---------- */
   .demo { padding: 0 0 64px; }
@@ -237,6 +246,10 @@
     .price-grid { grid-template-columns: 1fr; }
     .reviews { grid-template-columns: 1fr; }
   }
+  @media (max-width: 800px) {
+    .hero-art { grid-template-columns: 1fr; justify-items: center; }
+    .hero-art img { max-width: 460px; }
+  }
   @media (max-width: 620px) {
     section { padding: 48px 0; }
     .demo { padding-bottom: 48px; }
@@ -309,6 +322,18 @@
     <div class="wrap narrow">
       <h1 class="display">Your AI fitness coach <br>in your pocket</h1>
       <p>AI-generated training plans, a camera-based Form Coach, and nutrition tracking that just takes a photo.</p>
+    </div>
+    <div class="wrap hero-art">
+      <img
+        src="assets/RYZR_App_Store_01_Free_Workout_APPLE_1206x2622%20(1).png"
+        width="1206" height="2622" fetchpriority="high" decoding="async"
+        alt="Your free custom workout starts here. RYZR builds your plan in seconds, so you can start at your pace."
+      />
+      <img
+        src="assets/RYZR_AppStore_04_Nutrition_1206x2622.png"
+        width="1206" height="2622" decoding="async"
+        alt="Snap it. Track it. Photo or describe your meal; RYZR logs calories and macros in seconds."
+      />
     </div>
   </div>
 
