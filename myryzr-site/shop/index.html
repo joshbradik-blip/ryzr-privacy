@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <title>Shop — RYZR</title>
-<meta name="description" content="RYZR training gear, shipped to your door." />
+<meta name="description" content="Shop the training gear, recovery essentials, and supplements featured in the RYZR app. View our affiliate picks on Amazon." />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="theme-color" content="#050505" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +16,7 @@
 <header class="topbar">
   <div class="wrap topbar-inner">
     <a href="/"><img class="brand-logo" src="/assets/ryzr-wordmark.svg" width="130" height="26" alt="RYZR" /></a>
-    <button class="cart-btn" id="open-cart" type="button" aria-controls="cart">Cart <span class="cart-count" id="cart-count">0</span></button>
+    <button class="cart-btn" id="open-cart" type="button" aria-controls="cart" hidden>Cart <span class="cart-count" id="cart-count">0</span></button>
   </div>
 </header>
 
@@ -24,11 +24,23 @@
   <section class="hero">
     <div class="kicker">RYZR Shop</div>
     <h1>Gear for the work.</h1>
-    <p class="lede">Training equipment and apparel picked to pair with your RYZR plan. Shipped straight to you.</p>
-    <div class="perks"><span id="free-ship">Free standard shipping on qualifying orders</span><span>Express shipping available</span><span>Secure checkout by Stripe</span></div>
+    <p class="lede">The training gear, recovery essentials, and supplements featured in the RYZR app. Find your next training staple.</p>
   </section>
-  <section class="grid" id="grid" aria-live="polite"></section>
-  <div class="state" id="state">Loading products…</div>
+  <section class="affiliate-shop" aria-labelledby="amazon-heading">
+    <h2 id="amazon-heading" class="section-title">Our Amazon picks</h2>
+    <p class="lede">Choose “View on Amazon” to see current prices and availability. You’ll complete your purchase on Amazon, which handles checkout, shipping, and returns.</p>
+    <p class="affiliate-disclosure">As an Amazon Associate we earn from qualifying purchases. RYZR may earn a commission through these links at no extra cost to you.</p>
+    <div id="affiliate-state" class="catalog-state" role="status">Loading Amazon picks…</div>
+    <button id="affiliate-retry" class="btn" type="button" hidden>Try again</button>
+    <div id="affiliate-catalog" aria-busy="true"></div>
+    <noscript><p>Enable JavaScript to browse our Amazon picks.</p></noscript>
+  </section>
+  <section id="direct-shop" aria-labelledby="direct-heading" hidden>
+    <h2 id="direct-heading" class="section-title">Shop direct from RYZR</h2>
+    <div class="perks"><span id="free-ship">Free standard shipping on qualifying orders</span><span>Express shipping available</span><span>Secure checkout by Stripe</span></div>
+    <div class="grid" id="grid" aria-live="polite"></div>
+    <div class="state" id="state">Loading products…</div>
+  </section>
 </main>
 
 <div class="drawer-bg" id="drawer-bg"></div>
@@ -43,7 +55,8 @@
   </div>
 </aside>
 
-<footer class="site"><div class="wrap"><span>&#169; 2026 RYZR. Secure checkout by Stripe.</span><span><a href="/">Home</a><a href="/privacy-policy.html">Privacy</a><a href="/terms-of-service.html">Terms</a></span></div></footer>
+<footer class="site"><div class="wrap"><span>&#169; 2026 RYZR.</span><span><a href="/">Home</a><a href="/privacy-policy.html">Privacy</a><a href="/terms-of-service.html">Terms</a></span></div></footer>
+<script src="/shop/affiliate.js" defer></script>
 <script src="/shop/shop.js" defer></script>
 </body>
 </html>

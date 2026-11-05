@@ -72,6 +72,11 @@
   fetch("/api/shop/products").then(function (r) { return r.json(); }).then(function (d) {
     if (d.error) throw new Error(d.error);
     products = d.products || [];
+    // Amazon picks load independently and never enter the RYZR cart.
+    if (products.length) {
+      $("direct-shop").hidden = false;
+      $("open-cart").hidden = false;
+    }
     products.forEach(function (p) { byPrice[p.priceId] = p; });
     if (d.freeShippingThreshold) $("free-ship").textContent = "Free standard shipping over " + money(d.freeShippingThreshold, "usd");
     renderGrid(); renderCart();
