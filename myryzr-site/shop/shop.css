@@ -64,6 +64,8 @@ footer.site a:hover { color: #fff; }
 .affiliate-shop { padding-bottom: 64px; }
 .section-title { font-family: var(--ryzr-font-display); font-size: clamp(24px, 4vw, 36px); line-height: 1.15; margin: 12px 0; }
 .affiliate-disclosure { color: var(--ryzr-text-2); font-size: 14px; max-width: 720px; padding: 14px 18px; border-left: 3px solid var(--ryzr-orange); background: var(--ryzr-surface); margin: 20px 0 28px; }
+.illustration-disclaimer { color: var(--ryzr-text-2); font-size: 14px; line-height: 1.6; margin: -12px 0 28px; max-width: 720px; }
+.card-illustration { width: 100%; aspect-ratio: 4 / 3; flex-shrink: 0; background-color: #101010; background-image: url("/assets/shop-illustrations.png"); background-size: 300% 400%; background-repeat: no-repeat; border-bottom: 1px solid var(--ryzr-line); }
 .catalog-state { color: var(--ryzr-mute); padding: 18px 0; }
 .affiliate-category { margin-top: 30px; }
 .category-title { font-family: var(--ryzr-font-kicker); font-size: 22px; font-weight: 400; letter-spacing: .08em; color: var(--ryzr-orange); margin: 0; }

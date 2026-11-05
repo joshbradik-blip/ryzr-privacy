@@ -7,6 +7,21 @@
   var CATALOG_URL = "https://fuyzcssdryngvxmmjkvn.supabase.co/rest/v1/gear_products";
   var PUBLISHABLE_KEY = "sb_publishable_zfWm_GgKAH8NU4EyTr_vtQ_d03zJzFn";
   var ASSOCIATE_TAG = "bradikshop-20";
+  // Original illustrative artwork; positions in a 3-column, 4-row atlas.
+  // Map by ASIN so changing the catalog order cannot mismatch an illustration.
+  var ILLUSTRATIONS = {
+    B09PH9PNYY: [0, 0], // Adjustable phone tripod
+    B0CW9MSMK4: [1, 0], // Ring light tripod
+    B07837W5NX: [2, 0], // Flexible gripping mount
+    B0C37RKB5T: [0, 1], // Resistance tubes with handles
+    B084H4Q8VJ: [1, 1], // Workout mat
+    B01AVDVHTI: [2, 1], // Mini loop bands
+    B07BB3VQ42: [0, 2], // Lifting straps
+    B00XM2MXK8: [1, 2], // Foam roller
+    B00GL2HMES: [2, 2], // Creatine powder
+    B002DYIZH6: [0, 3], // Whey powder
+    B01LZQ8OYE: [1, 3]  // Shaker bottle
+  };
   var catalog = document.getElementById("affiliate-catalog");
   var state = document.getElementById("affiliate-state");
   var retry = document.getElementById("affiliate-retry");
@@ -37,6 +52,13 @@
         sections.set(title, grid);
       }
       var card = element("article", "card affiliate-card");
+      var position = ILLUSTRATIONS[product.asin];
+      if (position) {
+        var illustration = element("div", "card-illustration");
+        illustration.style.backgroundPosition = (position[0] * 50) + "% " + (position[1] * 100 / 3) + "%";
+        illustration.setAttribute("aria-hidden", "true");
+        card.appendChild(illustration);
+      }
       var body = element("div", "card-body");
       body.appendChild(element("div", "affiliate-label", "Amazon pick"));
       body.appendChild(element("h4", "", product.name));
