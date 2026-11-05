@@ -79,6 +79,14 @@
   .store-btn:hover .store-arrow { transform: translate(2px, -2px); }
   .store-btn:focus-visible { outline: none; box-shadow: inset 0 0 0 2px #fff; border-color: var(--ryzr-orange); }
   .store-btn.sm { min-height: 60px; }
+  .top-links { grid-template-columns: minmax(0, 1.15fr) repeat(2, minmax(0, 1fr)); width: 660px; }
+  .shop-btn { background: var(--ryzr-gradient); border-color: transparent; color: var(--ryzr-on-orange); }
+  .shop-btn::before, .shop-btn::after { background: var(--ryzr-on-orange); }
+  .shop-btn .store-eyebrow { color: var(--ryzr-on-orange); opacity: .8; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; }
+  .shop-btn .store-platform { font-size: 15px; white-space: normal; }
+  .shop-btn .platform-icon { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .shop-btn .store-arrow { stroke: var(--ryzr-on-orange); }
+  .shop-btn:hover { background: var(--ryzr-gradient); filter: brightness(1.08); border-color: transparent; }
 
   /* ---------- Feature bullets ---------- */
   .bullets { text-align: left; }
@@ -257,11 +265,17 @@
     .hero-grid .bullets li { font-size: 14px; gap: 8px; }
     .hero-grid .bullets svg { width: 18px; height: 18px; }
   }
+  @media (max-width: 960px) {
+    .topbar-inner { flex-wrap: wrap; gap: 22px; }
+    .top-links { width: 100%; }
+  }
   @media (max-width: 720px) {
     .topbar { padding: 20px 0; }
     .topbar-inner { flex-wrap: wrap; gap: 22px; }
     .brand-logo { width: 160px; height: 32px; }
     .store-links { width: 100%; }
+    .top-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .top-links .shop-btn { grid-column: 1 / -1; }
     .store-btn { grid-template-columns: 20px minmax(0, 1fr); gap: 7px; padding: 12px 8px; }
     .store-btn .platform-icon { width: 20px; height: 20px; }
     .store-btn .store-arrow { display: none; }
@@ -295,7 +309,12 @@
     <a class="mark" href="#top">
       <img class="brand-logo" src="assets/ryzr-wordmark.svg" width="190" height="38" alt="RYZR" />
     </a>
-    <nav class="store-links" aria-label="Download RYZR">
+    <nav class="store-links top-links" aria-label="Shop and download RYZR">
+      <a class="store-btn shop-btn" href="/shop">
+        <svg class="platform-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="store-copy"><span class="store-eyebrow">Shop</span><span class="store-platform">Fitness Equip &amp; Peptides</span></span>
+        <svg class="store-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 13 13 3M3 3h10v10" /></svg>
+      </a>
       <a class="store-btn" href="https://apps.apple.com/us/app/ryzr-personal-trainer/id6767086947?ppid=3daf2029-c9f9-431c-a660-a69def7b1a4f">
         <svg class="platform-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M17.05 12.04c-.02-2.05 1.68-3.03 1.75-3.08-.95-1.4-2.44-1.59-2.97-1.61-1.26-.13-2.47.74-3.11.74-.64 0-1.63-.72-2.69-.7-1.38.02-2.66.8-3.37 2.04-1.44 2.49-.37 6.17 1.03 8.19.68.99 1.49 2.1 2.55 2.06 1.03-.04 1.42-.66 2.66-.66 1.24 0 1.59.66 2.68.64 1.11-.02 1.81-1 2.49-1.99.78-1.14 1.1-2.25 1.12-2.31-.02-.01-2.15-.82-2.17-3.25zM15.1 6.13c.56-.68.94-1.63.84-2.58-.81.03-1.79.54-2.37 1.22-.52.6-.98 1.56-.86 2.48.9.07 1.83-.46 2.39-1.12z"/></svg>
         <span class="store-copy"><span class="store-eyebrow">Download on the</span><span class="store-platform">App Store</span></span>
@@ -520,6 +539,7 @@
     <div class="legal">
       <span>&#169; 2026 RYZR. All rights reserved.</span>
       <span class="links">
+        <a href="/shop">Shop</a>
         <a href="nutrition.html">Nutrition Tracker</a>
         <a href="privacy-policy.html">Privacy</a>
         <a href="terms-of-service.html">Terms</a>
