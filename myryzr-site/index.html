@@ -91,7 +91,7 @@
   .store-btn.sm svg { width: 16px; height: 16px; }
 
   /* ---------- Feature bullets ---------- */
-  .bullets { max-width: 660px; margin: 0 auto; padding: 34px 24px 6px; }
+  .bullets { text-align: left; }
   .bullets ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 15px; }
   .bullets li { display: flex; gap: 12px; align-items: flex-start; font-size: 16px; line-height: 1.45; }
   .bullets svg { width: 22px; height: 22px; flex-shrink: 0; margin-top: 1px; fill: var(--ryzr-orange); }
@@ -100,10 +100,14 @@
   .hero { text-align: center; padding: 54px 0 38px; }
   .hero h1 { font-size: clamp(36px, 6.4vw, 58px); }
   .hero p { color: var(--ryzr-text-2); font-size: clamp(17px, 2.1vw, 19px); line-height: 1.5; max-width: 540px; margin: 18px auto 0; }
-  .hero-art {
-    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px; max-width: 940px; margin-top: 36px;
+  .hero-grid {
+    display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+    gap: clamp(28px, 5vw, 56px); align-items: start;
+    max-width: 940px; margin-top: 36px;
   }
+  .hero-art { display: flex; flex-direction: column; gap: 24px; }
+  .hero-grid .bullets { position: sticky; top: 32px; padding-top: 8px; }
+  .hero-grid .bullets li { font-size: 17px; }
   .hero-art img {
     width: 100%; height: auto;
     border-radius: var(--ryzr-radius-card);
@@ -251,8 +255,13 @@
     .reviews { grid-template-columns: 1fr; }
   }
   @media (max-width: 800px) {
-    .hero-art { grid-template-columns: 1fr; justify-items: center; }
-    .hero-art img { max-width: 460px; }
+    /* Keep images left of the bullets on small screens, just tighter. */
+    .hero-grid { grid-template-columns: 42% minmax(0, 1fr); gap: 18px; margin-top: 28px; }
+    .hero-art { gap: 14px; }
+    .hero-grid .bullets { padding-top: 0; top: 16px; }
+    .hero-grid .bullets ul { gap: 12px; }
+    .hero-grid .bullets li { font-size: 14px; gap: 8px; }
+    .hero-grid .bullets svg { width: 18px; height: 18px; }
   }
   @media (max-width: 620px) {
     section { padding: 48px 0; }
@@ -295,49 +304,49 @@
 
 <main id="top">
 
-  <!-- Feature bullets -->
-  <div class="bullets">
-    <ul>
-      <li>
-        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6-4-4 1.6-1.6 2.4 2.4 5.2-5.2 1.6 1.6-6.8 6.8z"/></svg>
-        <span>Custom workout plans built around your goals</span>
-      </li>
-      <li>
-        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6-4-4 1.6-1.6 2.4 2.4 5.2-5.2 1.6 1.6-6.8 6.8z"/></svg>
-        <span>Nutrition tracking — snap a photo or describe a meal, get an instant calorie and macro estimate</span>
-      </li>
-      <li>
-        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6-4-4 1.6-1.6 2.4 2.4 5.2-5.2 1.6 1.6-6.8 6.8z"/></svg>
-        <span>Point your camera at any gym equipment and your AI coach explains how to use it</span>
-      </li>
-      <li>
-        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6-4-4 1.6-1.6 2.4 2.4 5.2-5.2 1.6 1.6-6.8 6.8z"/></svg>
-        <span>Connect a wearable like Apple Watch — your coach adjusts training around your sleep and recovery</span>
-      </li>
-      <li>
-        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6-4-4 1.6-1.6 2.4 2.4 5.2-5.2 1.6 1.6-6.8 6.8z"/></svg>
-        <span>In-app video walkthroughs for every exercise</span>
-      </li>
-    </ul>
-  </div>
-
   <!-- Hero -->
   <div class="hero">
     <div class="wrap narrow">
       <h1 class="display">Your AI fitness coach <br>in your pocket</h1>
       <p>AI-generated training plans, a camera-based Form Coach, and nutrition tracking that just takes a photo.</p>
     </div>
-    <div class="wrap hero-art">
-      <img
-        src="assets/RYZR_App_Store_01_Free_Workout_APPLE_1206x2622%20(1).png"
-        width="1206" height="2622" fetchpriority="high" decoding="async"
-        alt="Your free custom workout starts here. RYZR builds your plan in seconds, so you can start at your pace."
-      />
-      <img
-        src="assets/RYZR_AppStore_04_Nutrition_1206x2622.png"
-        width="1206" height="2622" decoding="async"
-        alt="Snap it. Track it. Photo or describe your meal; RYZR logs calories and macros in seconds."
-      />
+    <div class="wrap hero-grid">
+      <div class="hero-art">
+        <img
+          src="assets/RYZR_App_Store_01_Free_Workout_APPLE_1206x2622%20(1).png"
+          width="1206" height="2622" fetchpriority="high" decoding="async"
+          alt="Your free custom workout starts here. RYZR builds your plan in seconds, so you can start at your pace."
+        />
+        <img
+          src="assets/RYZR_AppStore_04_Nutrition_1206x2622.png"
+          width="1206" height="2622" decoding="async"
+          alt="Snap it. Track it. Photo or describe your meal; RYZR logs calories and macros in seconds."
+        />
+      </div>
+      <div class="bullets">
+        <ul>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6-4-4 1.6-1.6 2.4 2.4 5.2-5.2 1.6 1.6-6.8 6.8z"/></svg>
+            <span>Custom workout plans built around your goals</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6-4-4 1.6-1.6 2.4 2.4 5.2-5.2 1.6 1.6-6.8 6.8z"/></svg>
+            <span>Nutrition tracking — snap a photo or describe a meal, get an instant calorie and macro estimate</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6-4-4 1.6-1.6 2.4 2.4 5.2-5.2 1.6 1.6-6.8 6.8z"/></svg>
+            <span>Point your camera at any gym equipment and your AI coach explains how to use it</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6-4-4 1.6-1.6 2.4 2.4 5.2-5.2 1.6 1.6-6.8 6.8z"/></svg>
+            <span>Connect a wearable like Apple Watch — your coach adjusts training around your sleep and recovery</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6-4-4 1.6-1.6 2.4 2.4 5.2-5.2 1.6 1.6-6.8 6.8z"/></svg>
+            <span>In-app video walkthroughs for every exercise</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 
