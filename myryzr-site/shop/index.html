@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Shop — RYZR</title>
+<meta name="description" content="RYZR training gear, shipped to your door." />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#050505" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/ryzr-tokens.css">
+<link rel="stylesheet" href="/shop/shop.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a href="/"><img class="brand-logo" src="/assets/ryzr-wordmark.svg" width="130" height="26" alt="RYZR" /></a>
+    <button class="cart-btn" id="open-cart" type="button" aria-controls="cart">Cart <span class="cart-count" id="cart-count">0</span></button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="kicker">RYZR Shop</div>
+    <h1>Gear for the work.</h1>
+    <p class="lede">Training equipment and apparel picked to pair with your RYZR plan. Shipped straight to you.</p>
+    <div class="perks"><span id="free-ship">Free standard shipping on qualifying orders</span><span>Express shipping available</span><span>Secure checkout by Stripe</span></div>
+  </section>
+  <section class="grid" id="grid" aria-live="polite"></section>
+  <div class="state" id="state">Loading products…</div>
+</main>
+
+<div class="drawer-bg" id="drawer-bg"></div>
+<aside class="drawer" id="cart" aria-label="Cart">
+  <div class="drawer-head"><h2>Your cart</h2><button class="x" id="close-cart" type="button" aria-label="Close cart">&times;</button></div>
+  <div class="lines" id="lines"></div>
+  <div class="drawer-foot">
+    <div class="sum"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
+    <p class="note">Shipping and sales tax are calculated at checkout.</p>
+    <button class="btn block" id="checkout" type="button" disabled>Checkout</button>
+    <p class="err" id="err" role="alert"></p>
+  </div>
+</aside>
+
+<footer class="site"><div class="wrap"><span>&#169; 2026 RYZR. Secure checkout by Stripe.</span><span><a href="/">Home</a><a href="/privacy-policy.html">Privacy</a><a href="/terms-of-service.html">Terms</a></span></div></footer>
+<script src="/shop/shop.js" defer></script>
+</body>
+</html>

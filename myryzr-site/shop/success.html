@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Order confirmed — RYZR</title>
+<meta name="robots" content="noindex" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#050505" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/ryzr-tokens.css">
+<link rel="stylesheet" href="/shop/shop.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap topbar-inner"><a href="/"><img class="brand-logo" src="/assets/ryzr-wordmark.svg" width="130" height="26" alt="RYZR" /></a></div></header>
+<main class="wrap">
+  <section class="confirm">
+    <div class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></div>
+    <div class="kicker" id="kicker">Order received</div>
+    <h1 id="title">Thanks — you're all set.</h1>
+    <p class="lede" id="msg" style="margin:0 auto">Checking your order…</p>
+    <div class="actions"><a class="btn ghost" href="/shop">Keep shopping</a><a class="btn" href="/get">Get the RYZR app</a></div>
+  </section>
+</main>
+<footer class="site"><div class="wrap"><span>&#169; 2026 RYZR. Secure checkout by Stripe.</span><span><a href="/">Home</a><a href="/privacy-policy.html">Privacy</a><a href="/terms-of-service.html">Terms</a></span></div></footer>
+<script>
+(function () {
+  try { localStorage.removeItem("ryzr_cart"); } catch (e) {}
+  var id = new URLSearchParams(location.search).get("session_id");
+  var msg = document.getElementById("msg");
+  if (!id) { msg.textContent = "We couldn't find your order details, but if you completed payment you'll receive a confirmation email shortly."; return; }
+  fetch("/api/shop/order?session_id=" + encodeURIComponent(id)).then(function (r) { return r.json(); }).then(function (o) {
+    if (o.error) throw new Error(o.error);
+    var total = o.amountTotal != null ? new Intl.NumberFormat("en-US", { style: "currency", currency: (o.currency || "usd").toUpperCase() }).format(o.amountTotal / 100) : "";
+    if (o.paymentStatus === "paid") {
+      msg.textContent = "Your payment" + (total ? " of " + total : "") + " went through. A receipt is on its way" + (o.email ? " to " + o.email : "") + ", and we'll email you again when your order ships.";
+    } else if (o.status === "complete") {
+      document.getElementById("kicker").textContent = "Payment processing";
+      msg.textContent = "Your order is placed and your payment is processing. We'll email you" + (o.email ? " at " + o.email : "") + " once it clears and again when it ships.";
+    } else {
+      document.getElementById("kicker").textContent = "Not completed";
+      document.getElementById("title").textContent = "Checkout wasn't completed.";
+      msg.textContent = "No payment was taken. Your cart is waiting in the shop.";
+    }
+  }).catch(function () {
+    msg.textContent = "Your order is being confirmed. If you completed payment you'll receive a receipt by email shortly.";
+  });
+})();
+</script>
+</body>
+</html>
