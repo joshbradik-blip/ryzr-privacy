@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 68" width="190" height="38" role="img" aria-labelledby="ryzr-wordmark-title">
+  <title id="ryzr-wordmark-title">RYZR</title>
+  <g transform="translate(18 4) skewX(-10)" fill="#FFFFFF">
+    <path fill-rule="evenodd" d="M0 60V0H43L60 14V29L48 40L67 60H48L31 41H15V60ZM15 13V28H39L45 23V18L40 13Z"/>
+    <path d="M82 0H100L116 23L133 0H151L124 39V60H108V39Z"/>
+    <path d="M164 0H232V14H164ZM164 46H232V60H164Z"/>
+    <path fill="#FF6B1A" d="M212 14H232L184 46H164Z"/>
+    <path fill-rule="evenodd" d="M246 60V0H289L306 14V29L294 40L313 60H294L277 41H261V60ZM261 13V28H285L291 23V18L286 13Z"/>
+  </g>
+</svg>

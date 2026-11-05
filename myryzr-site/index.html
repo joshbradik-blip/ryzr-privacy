@@ -54,41 +54,31 @@
   .body-copy { color: var(--ryzr-text-2); font-size: 17px; line-height: 1.6; margin: 0; }
 
   /* ---------- Top bar: logo + store links ---------- */
-  .topbar {
-    display: flex; flex-direction: column; align-items: center; gap: 22px;
-    padding: 28px 24px 24px;
-    border-bottom: 1px solid var(--ryzr-line);
-  }
-  .mark { display: inline-flex; align-items: center; gap: 11px; }
-  .mark .glyph {
-    width: 36px; height: 36px; border-radius: 9px;
-    background: #000; border: 1px solid var(--ryzr-line);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--ryzr-font-display); font-size: 18px; line-height: 1;
-  }
-  .mark .word { font-family: var(--ryzr-font-display); font-size: 22px; letter-spacing: 0.08em; }
+  .topbar { padding: 22px 0; border-bottom: 1px solid var(--ryzr-line); }
+  .topbar-inner { display: flex; justify-content: space-between; align-items: center; gap: 32px; }
+  .mark { display: inline-flex; flex-shrink: 0; }
+  .brand-logo { width: 190px; height: 38px; }
+  .mark:focus-visible { outline: 2px solid var(--ryzr-orange); outline-offset: 8px; }
 
-  .store-links { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+  .store-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; width: 420px; max-width: 100%; }
   .store-btn {
-    display: inline-flex; align-items: center; gap: 9px;
-    padding: 12px 22px;
-    border-radius: var(--ryzr-radius-pill);
-    background: var(--ryzr-surface);
-    border: 1px solid var(--ryzr-line);
-    color: #fff; font-weight: 700; font-size: 15px;
-    transition: border-color .15s ease, transform .15s ease;
+    position: relative; display: grid; grid-template-columns: 24px minmax(0, 1fr) 16px;
+    align-items: center; gap: 11px; min-width: 0; min-height: 64px; padding: 12px 16px;
+    background: #111; border: 1px solid rgba(255,255,255,0.18); color: #fff;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+    transition: border-color .18s ease, background-color .18s ease, transform .18s ease;
   }
-  .store-btn:hover { border-color: rgba(255,255,255,0.26); transform: translateY(-2px); }
-  .store-btn svg { width: 20px; height: 20px; flex-shrink: 0; fill: currentColor; }
-  .store-btn.primary {
-    background: var(--ryzr-gradient);
-    border-color: transparent;
-    color: var(--ryzr-on-orange);
-    font-weight: 800;
-  }
-  .store-btn.primary:hover { box-shadow: var(--ryzr-shadow-glow); }
-  .store-btn.sm { padding: 9px 16px; font-size: 13px; gap: 7px; }
-  .store-btn.sm svg { width: 16px; height: 16px; }
+  .store-btn::before { content: ""; position: absolute; left: 0; top: 12px; bottom: 12px; width: 3px; background: var(--ryzr-orange); }
+  .store-btn::after { content: ""; position: absolute; top: 0; right: 0; width: 12px; height: 12px; background: var(--ryzr-orange); clip-path: polygon(0 0, 0 100%, 100% 100%); }
+  .store-copy { display: flex; flex-direction: column; gap: 4px; }
+  .store-eyebrow { color: #bdbdbd; font-size: 10px; font-weight: 500; line-height: 1.2; letter-spacing: 0.035em; }
+  .store-platform { font-size: 17px; font-weight: 800; line-height: 1.1; white-space: nowrap; }
+  .store-btn .platform-icon { width: 24px; height: 24px; fill: currentColor; }
+  .store-btn .store-arrow { width: 16px; height: 16px; fill: none; stroke: var(--ryzr-orange); stroke-width: 1.8; transition: transform .18s ease; }
+  .store-btn:hover { border-color: var(--ryzr-orange); background: #19130f; transform: translateY(-3px); }
+  .store-btn:hover .store-arrow { transform: translate(2px, -2px); }
+  .store-btn:focus-visible { outline: none; box-shadow: inset 0 0 0 2px #fff; border-color: var(--ryzr-orange); }
+  .store-btn.sm { min-height: 60px; }
 
   /* ---------- Feature bullets ---------- */
   .bullets { text-align: left; }
@@ -97,9 +87,14 @@
   .bullets svg { width: 22px; height: 22px; flex-shrink: 0; margin-top: 1px; fill: var(--ryzr-orange); }
 
   /* ---------- Hero ---------- */
-  .hero { text-align: center; padding: 54px 0 38px; }
-  .hero h1 { font-size: clamp(36px, 6.4vw, 58px); }
-  .hero p { color: var(--ryzr-text-2); font-size: clamp(17px, 2.1vw, 19px); line-height: 1.5; max-width: 540px; margin: 18px auto 0; }
+  .hero { padding: 64px 0 38px; }
+  .hero-intro { max-width: 940px; text-align: left; }
+  .hero-eyebrow { display: flex; align-items: center; gap: 14px; margin: 0 0 24px; color: var(--ryzr-text-2); font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+  .hero-eyebrow::before { content: ""; width: 28px; height: 5px; background: var(--ryzr-orange); transform: skewX(-35deg) rotate(-35deg); }
+  .hero .hero-title { font-family: var(--ryzr-font-kicker); font-size: clamp(38px, 9.8vw, 108px); font-weight: 400; line-height: 0.94; letter-spacing: -0.015em; }
+  .hero-title > span, .hero-title > em { display: block; }
+  .hero-summary { color: var(--ryzr-text-2); font-size: clamp(16px, 2vw, 19px); line-height: 1.6; max-width: 580px; margin: 24px 0 0; }
+  .hero-summary strong { color: #fff; font-weight: 600; }
   .hero-grid {
     display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
     gap: clamp(28px, 5vw, 56px); align-items: start;
@@ -235,8 +230,7 @@
   /* ---------- Footer ---------- */
   footer.site { border-top: 1px solid var(--ryzr-line); padding: 44px 0 36px; }
   footer.site .row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 22px; }
-  footer.site .mark .glyph { width: 28px; height: 28px; border-radius: 7px; font-size: 14px; }
-  footer.site .mark .word { font-size: 17px; }
+  footer.site .brand-logo { width: 160px; height: 32px; }
   footer.site .legal {
     margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--ryzr-line);
     display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
@@ -263,52 +257,67 @@
     .hero-grid .bullets li { font-size: 14px; gap: 8px; }
     .hero-grid .bullets svg { width: 18px; height: 18px; }
   }
+  @media (max-width: 720px) {
+    .topbar { padding: 20px 0; }
+    .topbar-inner { flex-wrap: wrap; gap: 22px; }
+    .brand-logo { width: 160px; height: 32px; }
+    .store-links { width: 100%; }
+    .store-btn { grid-template-columns: 20px minmax(0, 1fr); gap: 7px; padding: 12px 8px; }
+    .store-btn .platform-icon { width: 20px; height: 20px; }
+    .store-btn .store-arrow { display: none; }
+    .store-platform { font-size: 15px; }
+  }
   @media (max-width: 620px) {
     section { padding: 48px 0; }
     .demo { padding-bottom: 48px; }
     .hero { padding: 40px 0 30px; }
-    /* The headline's hand-placed break only helps once the line fits; on phones
-       let it wrap on its own. */
-    .hero h1 br { display: none; }
-    .hero h1 { text-wrap: balance; }
-    .store-links { width: 100%; flex-direction: column; }
-    .store-btn { justify-content: center; }
+    .hero-eyebrow { margin-bottom: 20px; font-size: 10px; }
+    .hero-summary { margin-top: 20px; }
     .price { padding: 24px 22px; }
     .review { padding: 20px; }
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     * { transition: none !important; }
+    .store-btn:hover, .store-btn:hover .store-arrow { transform: none; }
+  }
+  @media (forced-colors: active) {
+    .store-btn { clip-path: none; }
+    .store-btn:focus-visible { outline: 2px solid Highlight; outline-offset: 3px; }
   }
 </style>
 </head>
 <body>
 
 <!-- Top bar: logo + store links -->
-<div class="topbar">
-  <a class="mark" href="#top">
-    <span class="glyph">R</span>
-    <span class="word">RYZR</span>
-  </a>
-  <div class="store-links">
-    <a class="store-btn" href="https://apps.apple.com/us/app/ryzr-personal-trainer/id6767086947?ppid=3daf2029-c9f9-431c-a660-a69def7b1a4f">
-      <svg viewBox="0 0 24 24"><path d="M17.05 12.04c-.02-2.05 1.68-3.03 1.75-3.08-.95-1.4-2.44-1.59-2.97-1.61-1.26-.13-2.47.74-3.11.74-.64 0-1.63-.72-2.69-.7-1.38.02-2.66.8-3.37 2.04-1.44 2.49-.37 6.17 1.03 8.19.68.99 1.49 2.1 2.55 2.06 1.03-.04 1.42-.66 2.66-.66 1.24 0 1.59.66 2.68.64 1.11-.02 1.81-1 2.49-1.99.78-1.14 1.1-2.25 1.12-2.31-.02-.01-2.15-.82-2.17-3.25zM15.1 6.13c.56-.68.94-1.63.84-2.58-.81.03-1.79.54-2.37 1.22-.52.6-.98 1.56-.86 2.48.9.07 1.83-.46 2.39-1.12z"/></svg>
-      Download on the App Store
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="mark" href="#top">
+      <img class="brand-logo" src="assets/ryzr-wordmark.svg" width="190" height="38" alt="RYZR" />
     </a>
-    <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.ryzr.app&amp;pcampaignid=web_share">
-      <svg viewBox="0 0 24 24"><path d="M3.6 2.4c-.2.3-.3.7-.3 1.2v16.8c0 .5.1.9.3 1.2l9.1-9.6L3.6 2.4zm10.1 8.4l2.6-2.7-9-5.1c-.4-.2-.8-.2-1.1-.1l7.5 7.9zm0 1.4l-7.5 7.9c.3.1.7.1 1.1-.1l9-5.1-2.6-2.7zm5-2.6l-2.1 1.2 2.4 2.5c.6-.4 1-1 1-1.7s-.4-1.3-1.3-2z"/></svg>
-      Get it on Google Play
-    </a>
+    <nav class="store-links" aria-label="Download RYZR">
+      <a class="store-btn" href="https://apps.apple.com/us/app/ryzr-personal-trainer/id6767086947?ppid=3daf2029-c9f9-431c-a660-a69def7b1a4f">
+        <svg class="platform-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M17.05 12.04c-.02-2.05 1.68-3.03 1.75-3.08-.95-1.4-2.44-1.59-2.97-1.61-1.26-.13-2.47.74-3.11.74-.64 0-1.63-.72-2.69-.7-1.38.02-2.66.8-3.37 2.04-1.44 2.49-.37 6.17 1.03 8.19.68.99 1.49 2.1 2.55 2.06 1.03-.04 1.42-.66 2.66-.66 1.24 0 1.59.66 2.68.64 1.11-.02 1.81-1 2.49-1.99.78-1.14 1.1-2.25 1.12-2.31-.02-.01-2.15-.82-2.17-3.25zM15.1 6.13c.56-.68.94-1.63.84-2.58-.81.03-1.79.54-2.37 1.22-.52.6-.98 1.56-.86 2.48.9.07 1.83-.46 2.39-1.12z"/></svg>
+        <span class="store-copy"><span class="store-eyebrow">Download on the</span><span class="store-platform">App Store</span></span>
+        <svg class="store-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 13 13 3M3 3h10v10" /></svg>
+      </a>
+      <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.ryzr.app&amp;pcampaignid=web_share">
+        <svg class="platform-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M3.6 2.4c-.2.3-.3.7-.3 1.2v16.8c0 .5.1.9.3 1.2l9.1-9.6L3.6 2.4zm10.1 8.4l2.6-2.7-9-5.1c-.4-.2-.8-.2-1.1-.1l7.5 7.9zm0 1.4l-7.5 7.9c.3.1.7.1 1.1-.1l9-5.1-2.6-2.7zm5-2.6l-2.1 1.2 2.4 2.5c.6-.4 1-1 1-1.7s-.4-1.3-1.3-2z"/></svg>
+        <span class="store-copy"><span class="store-eyebrow">Get it on</span><span class="store-platform">Google Play</span></span>
+        <svg class="store-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 13 13 3M3 3h10v10" /></svg>
+      </a>
+    </nav>
   </div>
-</div>
+</header>
 
 <main id="top">
 
   <!-- Hero -->
   <div class="hero">
-    <div class="wrap narrow">
-      <h1 class="display">Your AI fitness coach <br>in your pocket</h1>
-      <p>AI-generated training plans, a camera-based Form Coach, and nutrition tracking that just takes a photo.</p>
+    <div class="wrap hero-intro">
+      <p class="hero-eyebrow">Your personal AI coach</p>
+      <h1 class="display hero-title"><span>YOU BRING THE GOALS.</span><em>RYZR BUILDS THE PLAN.</em></h1>
+      <p class="hero-summary"><strong>Your workout. Your form. Your fuel.</strong><br>One coach, built around you.</p>
     </div>
     <div class="wrap hero-grid">
       <div class="hero-art">
@@ -493,17 +502,18 @@
   <div class="wrap">
     <div class="row">
       <a class="mark" href="#top">
-        <span class="glyph">R</span>
-        <span class="word">RYZR</span>
+        <img class="brand-logo" src="assets/ryzr-wordmark.svg" width="190" height="38" alt="RYZR" />
       </a>
       <div class="store-links">
         <a class="store-btn sm" href="https://apps.apple.com/us/app/ryzr-personal-trainer/id6767086947?ppid=3daf2029-c9f9-431c-a660-a69def7b1a4f">
-          <svg viewBox="0 0 24 24"><path d="M17.05 12.04c-.02-2.05 1.68-3.03 1.75-3.08-.95-1.4-2.44-1.59-2.97-1.61-1.26-.13-2.47.74-3.11.74-.64 0-1.63-.72-2.69-.7-1.38.02-2.66.8-3.37 2.04-1.44 2.49-.37 6.17 1.03 8.19.68.99 1.49 2.1 2.55 2.06 1.03-.04 1.42-.66 2.66-.66 1.24 0 1.59.66 2.68.64 1.11-.02 1.81-1 2.49-1.99.78-1.14 1.1-2.25 1.12-2.31-.02-.01-2.15-.82-2.17-3.25zM15.1 6.13c.56-.68.94-1.63.84-2.58-.81.03-1.79.54-2.37 1.22-.52.6-.98 1.56-.86 2.48.9.07 1.83-.46 2.39-1.12z"/></svg>
-          App Store
+          <svg class="platform-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M17.05 12.04c-.02-2.05 1.68-3.03 1.75-3.08-.95-1.4-2.44-1.59-2.97-1.61-1.26-.13-2.47.74-3.11.74-.64 0-1.63-.72-2.69-.7-1.38.02-2.66.8-3.37 2.04-1.44 2.49-.37 6.17 1.03 8.19.68.99 1.49 2.1 2.55 2.06 1.03-.04 1.42-.66 2.66-.66 1.24 0 1.59.66 2.68.64 1.11-.02 1.81-1 2.49-1.99.78-1.14 1.1-2.25 1.12-2.31-.02-.01-2.15-.82-2.17-3.25zM15.1 6.13c.56-.68.94-1.63.84-2.58-.81.03-1.79.54-2.37 1.22-.52.6-.98 1.56-.86 2.48.9.07 1.83-.46 2.39-1.12z"/></svg>
+          <span class="store-copy"><span class="store-eyebrow">Download on the</span><span class="store-platform">App Store</span></span>
+          <svg class="store-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 13 13 3M3 3h10v10" /></svg>
         </a>
         <a class="store-btn sm" href="https://play.google.com/store/apps/details?id=com.ryzr.app&amp;pcampaignid=web_share">
-          <svg viewBox="0 0 24 24"><path d="M3.6 2.4c-.2.3-.3.7-.3 1.2v16.8c0 .5.1.9.3 1.2l9.1-9.6L3.6 2.4zm10.1 8.4l2.6-2.7-9-5.1c-.4-.2-.8-.2-1.1-.1l7.5 7.9zm0 1.4l-7.5 7.9c.3.1.7.1 1.1-.1l9-5.1-2.6-2.7zm5-2.6l-2.1 1.2 2.4 2.5c.6-.4 1-1 1-1.7s-.4-1.3-1.3-2z"/></svg>
-          Google Play
+          <svg class="platform-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M3.6 2.4c-.2.3-.3.7-.3 1.2v16.8c0 .5.1.9.3 1.2l9.1-9.6L3.6 2.4zm10.1 8.4l2.6-2.7-9-5.1c-.4-.2-.8-.2-1.1-.1l7.5 7.9zm0 1.4l-7.5 7.9c.3.1.7.1 1.1-.1l9-5.1-2.6-2.7zm5-2.6l-2.1 1.2 2.4 2.5c.6-.4 1-1 1-1.7s-.4-1.3-1.3-2z"/></svg>
+          <span class="store-copy"><span class="store-eyebrow">Get it on</span><span class="store-platform">Google Play</span></span>
+          <svg class="store-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 13 13 3M3 3h10v10" /></svg>
         </a>
       </div>
     </div>
